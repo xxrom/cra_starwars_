@@ -5,34 +5,35 @@ module.exports = {
     },
     settings: {
         react: {
-            version: "detect",
+            version: 'detect',
         },
     },
     extends: [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:react/recommended",
-        "prettier",
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:react/recommended',
+        'prettier',
     ],
     overrides: [
         {
             env: {
                 node: true,
             },
-            files: [".eslintrc.{js,cjs}"],
+            files: ['.eslintrc.{js,cjs}'],
             parserOptions: {
-                sourceType: "script",
+                sourceType: 'script',
             },
         },
     ],
-    parser: "@typescript-eslint/parser",
+    parser: '@typescript-eslint/parser',
     parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
+        ecmaVersion: 'latest',
+        sourceType: 'module',
     },
-    plugins: ["@typescript-eslint", "react", "prettier", "react-hooks"],
+    plugins: ['@typescript-eslint', 'react', 'prettier', 'react-hooks'],
     rules: {
-        "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
-        "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
+        '@typescript-eslint/no-unused-vars': 'warn',
+        'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+        'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
     },
 };
