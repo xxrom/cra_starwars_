@@ -9,7 +9,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 //import { Layout } from './components';
-import { Card, Cards, NotFound } from './pages';
+import { Person, ListOfPersons, NotFound } from './pages';
 
 const { Button } = chakraTheme.components;
 
@@ -23,11 +23,11 @@ const theme = extendBaseTheme({
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Cards />,
+    element: <ListOfPersons />,
     children: [
       {
         path: ':cardId',
-        element: <Card />,
+        element: <Person />,
       },
     ],
     errorElement: <NotFound />,

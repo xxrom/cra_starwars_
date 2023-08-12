@@ -1,3 +1,3 @@
-export { Cards } from './Cards';
-export { Card } from './Card';
+export { Person } from './Person';
+export { ListOfPersons } from './ListOfPersons';
 export { NotFound } from './NotFound';
