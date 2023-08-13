@@ -1,15 +1,14 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-import { Box, Button, SkeletonText } from '@chakra-ui/react';
-import { PersonType, StoreType, useStore } from '../hooks/useStore/useStore';
+import React, { memo, useEffect, useRef } from 'react';
+import { Box, SkeletonText } from '@chakra-ui/react';
+import { PersonType, useStore } from '../hooks/useStore/useStore';
 import { Pagination, PersonCard } from '../components';
 
 const PeopleList = memo(({ people }: { people: Array<PersonType> }) => {
   const { openedPage, isLoading } = useStore();
 
-  console.log('people', people);
   const peopleList = people.length > 0 ? people : Array(10).fill(0);
 
-  if (openedPage > 1 && peopleList.length === 0) {
+  if (openedPage > 1 && people.length === 0) {
     return <Box py="14">Page is empty.</Box>;
   }
 

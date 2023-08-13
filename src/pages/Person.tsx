@@ -1,65 +1,9 @@
-import {
-  Box,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  Stack,
-} from '@chakra-ui/react';
-import React, {
-  ChangeEventHandler,
-  HTMLInputTypeAttribute,
-  memo,
-  useCallback,
-  useMemo,
-} from 'react';
+import React, { ChangeEventHandler, memo, useCallback, useMemo } from 'react';
+import { Box } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
+import { PersonInput, PersonInputType } from '../components/PersonInput';
 import { useStore } from '../hooks';
 import type { PersonType } from '../hooks/useStore/useStore';
-
-type PersonInputType = {
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  label: string;
-  placeholder: string | number;
-  value: string | number;
-  type: HTMLInputTypeAttribute;
-  isDisabled?: boolean;
-};
-const PersonInput = ({
-  onChange,
-  placeholder,
-  value,
-  label,
-  type,
-  isDisabled = false,
-}: PersonInputType) => (
-  <InputGroup mt="3">
-    <InputLeftAddon
-      p="2"
-      borderLeftRadius="6"
-      minWidth="150px"
-      fontSize="lg"
-      backgroundColor="gray.600"
-      color="white"
-    >
-      {`${label}:`}
-    </InputLeftAddon>
-
-    <Input
-      isDisabled={isDisabled}
-      type={type}
-      display="flex"
-      width="100%"
-      minWidth="100px"
-      p="2"
-      borderRadius="6"
-      size="lg"
-      placeholder={String(placeholder)}
-      defaultValue={value}
-      onChange={onChange}
-      backgroundColor={isDisabled ? 'gray.400' : 'gray.100'}
-    />
-  </InputGroup>
-);
 
 const personKeys: Array<
   {
@@ -100,7 +44,10 @@ export const Person = memo(() => {
   const { personId = '' } = useParams();
   const { peopleMap, updatePerson } = useStore();
 
-  const person = useMemo(() => peopleMap[personId] ?? {}, []);
+  const personData = useMemo(
+    () => peopleMap[personId] ?? {},
+    [peopleMap, personId]
+  );
 
   const onChange = useCallback(
     (key: string): ChangeEventHandler<HTMLInputElement> =>
@@ -108,11 +55,11 @@ export const Person = memo(() => {
         const value = event.target.value;
 
         updatePerson({
-          ...person,
+          ...personData,
           [key]: value,
         });
       },
-    [person, updatePerson]
+    [personData, updatePerson]
   );
 
   return (
@@ -131,8 +78,8 @@ export const Person = memo(() => {
           key={key}
           label={key}
           onChange={onChange(key)}
-          placeholder={person[key]}
-          value={person[key]}
+          placeholder={personData[key]}
+          value={personData[key]}
           {...rest}
         />
       ))}

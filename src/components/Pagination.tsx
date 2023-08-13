@@ -1,5 +1,5 @@
-import { Box, Button } from '@chakra-ui/react';
 import React, { memo, useCallback, useEffect, useState } from 'react';
+import { Box, Button } from '@chakra-ui/react';
 import { useStore } from '../hooks';
 
 const MIN_PAGES = 5;
