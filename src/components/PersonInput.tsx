@@ -1,7 +1,6 @@
 import React from 'react';
 import { Input, InputGroup, InputLeftAddon } from '@chakra-ui/react';
 import { ChangeEventHandler, HTMLInputTypeAttribute } from 'react';
-import type { PersonType } from '../hooks/useStore/useStore';
 
 export type PersonInputType = {
   onChange: ChangeEventHandler<HTMLInputElement>;
