@@ -1,11 +1,21 @@
 import { Box, Button } from '@chakra-ui/react';
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useStore } from '../hooks';
 
+const MIN_PAGES = 5;
 export const Pagination = memo(() => {
   const { openedPage, loadPage, pagesMap } = useStore();
+  const [pages, setPages] = useState<Array<number>>([]);
 
-  const pages = Object.keys(pagesMap).map(Number);
+  useEffect(() => {
+    const allKeys = Object.keys(pagesMap).map(Number);
+    const pagesSize = allKeys.length > MIN_PAGES ? allKeys.length : MIN_PAGES;
+    const pageKeys = Array(pagesSize)
+      .fill(0)
+      .map((_, index) => index + 1);
+
+    setPages([...pageKeys]);
+  }, [pagesMap]);
 
   const loadMore = useCallback(
     (loadPageNumber = 1) =>
@@ -15,36 +25,54 @@ export const Pagination = memo(() => {
   );
 
   return (
-    <Box px="6" py="3" mt="3" boxShadow="lg" bg="white">
-      <div>{`pages: ${openedPage}`}</div>
+    <Box
+      px="5"
+      py="3"
+      mt="3"
+      display="flex"
+      alignItems="center"
+      boxShadow="lg"
+      borderRadius="8"
+      bg="white"
+    >
+      <Button
+        mx="1"
+        display="inline-flex"
+        isDisabled={openedPage === 1}
+        onClick={loadMore(openedPage - 1)}
+      >
+        {'<'}
+      </Button>
 
-      <div>
-        <Button ml="3" display="inline-flex" onClick={loadMore(1)}>
-          First
-        </Button>
-
-        <Button ml="3" display="inline-flex" onClick={loadMore(openedPage - 1)}>
-          Prev
-        </Button>
-
+      <Box
+        display="flex"
+        flexDirection="row"
+        flexWrap="wrap"
+        justifyContent="center"
+      >
         {pages.map((key) => (
-          <span key={key} onClick={loadMore(key)}>
-            {` -${key}- `}
-          </span>
+          <Box
+            px="1"
+            display="inline-flex"
+            background={key === openedPage ? 'purple.600' : 'transparent'}
+            color={key === openedPage ? 'white' : 'black'}
+            cursor="pointer"
+            borderRadius="4"
+            key={key}
+            onClick={loadMore(key)}
+          >
+            {pagesMap[key] ? `_${key}_ ` : `~${key}~`}
+          </Box>
         ))}
+      </Box>
 
-        <Button ml="3" display="inline-flex" onClick={loadMore(openedPage + 1)}>
-          Next
-        </Button>
+      <Button mx="1" display="inline-flex" onClick={loadMore(openedPage + 1)}>
+        {'>'}
+      </Button>
 
-        <Button
-          ml="3"
-          display="inline-flex"
-          onClick={loadMore(pages.length + 1)}
-        >
-          Load More
-        </Button>
-      </div>
+      <Button mx="1" display="inline-flex" onClick={loadMore(pages.length + 1)}>
+        Load
+      </Button>
     </Box>
   );
 });

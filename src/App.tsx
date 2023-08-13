@@ -2,9 +2,17 @@ import React, { memo, useEffect } from 'react';
 import {
   Box,
   ChakraBaseProvider,
+  Editable,
+  EditableInput,
+  EditablePreview,
+  EditableTextarea,
   extendBaseTheme,
+  Input,
+  InputGroup,
+  InputLeftAddon,
   Skeleton,
   SkeletonText,
+  Stack,
 } from '@chakra-ui/react';
 import chakraTheme from '@chakra-ui/theme';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -21,6 +29,14 @@ const theme = extendBaseTheme({
     Box,
     Skeleton,
     SkeletonText,
+    Editable,
+    EditableInput,
+    EditableTextarea,
+    EditablePreview,
+    Input,
+    InputLeftAddon,
+    InputGroup,
+    Stack,
   },
 });
 

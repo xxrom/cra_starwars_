@@ -8,8 +8,10 @@ export type PersonType = {
   name: string;
   birth_year: string;
   gender: string;
-  mass: string;
-  height: string;
+  mass: number;
+  height: number;
+  eye_color: string;
+  homeworld: string;
 } & IDType;
 export type PageType = Array<IDType['id']>;
 
