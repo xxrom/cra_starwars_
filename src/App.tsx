@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useEffect } from 'react';
 import {
   Box,
   ChakraBaseProvider,
@@ -10,6 +10,8 @@ import chakraTheme from '@chakra-ui/theme';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './components';
 import { Person, People, NotFound } from './pages';
+import { useStore } from './hooks';
+import { setToLS } from './hooks/useStore/useStore';
 
 const { Button } = chakraTheme.components;
 
@@ -40,8 +42,17 @@ const router = createBrowserRouter([
   },
 ]);
 
-export const App = () => (
-  <ChakraBaseProvider theme={theme}>
-    <RouterProvider router={router} />
-  </ChakraBaseProvider>
-);
+export const App = memo(() => {
+  const { peopleMap, pagesMap } = useStore();
+
+  // Sync with LS
+  useEffect(() => {
+    setToLS({ peopleMap, pagesMap });
+  }, [peopleMap, pagesMap]);
+
+  return (
+    <ChakraBaseProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ChakraBaseProvider>
+  );
+});

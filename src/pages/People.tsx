@@ -1,44 +1,16 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Box, Button, SkeletonText } from '@chakra-ui/react';
 import { useStore } from '../hooks/useStore/useStore';
-import { PersonCard } from '../components';
-
-const mockTimeout = (timeout = 400) =>
-  new Promise((res) => {
-    setTimeout(() => res(''), timeout);
-  });
+import { Pagination, PersonCard } from '../components';
 
 export const People = memo(() => {
   const initRef = useRef(false);
 
-  const { openedPage, setOpenedPage, pagesMap, addPage, getPageByPeopleIDs } =
+  const { openedPage, isLoading, pagesMap, getPageByPeopleIDs, loadPage } =
     useStore();
-  const [isLoading, setIsLoading] = useState(false);
 
   const currentPageIDs = pagesMap[openedPage] ?? [];
   const people = getPageByPeopleIDs(currentPageIDs);
-
-  const getData = useCallback(
-    async (fetchPage: number) => {
-      if (pagesMap[fetchPage]) {
-        return;
-      }
-
-      setIsLoading(true);
-
-      const { results = [] } = await fetch(
-        `https://swapi.dev/api/people/?page=${fetchPage}`
-      ).then((res) => res.json());
-
-      await mockTimeout();
-
-      addPage(fetchPage, results);
-
-      setIsLoading(false);
-      setOpenedPage(fetchPage);
-    },
-    [pagesMap, addPage, setOpenedPage]
-  );
 
   useEffect(() => {
     // Fetch Data only once
@@ -50,13 +22,8 @@ export const People = memo(() => {
       initRef.current = true;
     }
 
-    getData(1);
-  }, [getData]);
-
-  const loadMore = useCallback(
-    () => getData(openedPage + 1),
-    [getData, openedPage]
-  );
+    loadPage(1);
+  }, [loadPage]);
 
   return (
     <>
@@ -85,9 +52,7 @@ export const People = memo(() => {
         )}
       </Box>
 
-      <div>{`pages: ${openedPage}`}</div>
-
-      <Button onClick={loadMore}>Load More </Button>
+      <Pagination />
     </>
   );
 });
