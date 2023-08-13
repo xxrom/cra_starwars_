@@ -1,32 +1,38 @@
 import React from 'react';
-import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react';
-import chakraTheme from '@chakra-ui/theme';
 import {
-  BrowserRouter,
-  Routes,
-  Route,
-  createBrowserRouter,
-  RouterProvider,
-} from 'react-router-dom';
-//import { Layout } from './components';
-import { Person, ListOfPersons, NotFound } from './pages';
+  Box,
+  ChakraBaseProvider,
+  extendBaseTheme,
+  Skeleton,
+  SkeletonText,
+} from '@chakra-ui/react';
+import chakraTheme from '@chakra-ui/theme';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Layout } from './components';
+import { Person, People, NotFound } from './pages';
 
 const { Button } = chakraTheme.components;
 
 const theme = extendBaseTheme({
   components: {
     Button,
+    Box,
+    Skeleton,
+    SkeletonText,
   },
 });
 
-//<Route path="/" element={<Layout />}>
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <ListOfPersons />,
+    element: <Layout />,
     children: [
       {
-        path: ':cardId',
+        path: '',
+        element: <People />,
+      },
+      {
+        path: ':personId',
         element: <Person />,
       },
     ],
@@ -34,12 +40,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-export const App = () => {
-  return (
-    <ChakraBaseProvider theme={theme}>
-      <RouterProvider router={router} />
-
-      <div>Test2</div>
-    </ChakraBaseProvider>
-  );
-};
+export const App = () => (
+  <ChakraBaseProvider theme={theme}>
+    <RouterProvider router={router} />
+  </ChakraBaseProvider>
+);

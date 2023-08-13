@@ -1,3 +1,3 @@
 export { Person } from './Person';
-export { ListOfPersons } from './ListOfPersons';
+export { People } from './People';
 export { NotFound } from './NotFound';

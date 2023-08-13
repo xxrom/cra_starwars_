@@ -1,5 +1,5 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-export const NotFound = () => {
+export const NotFound = memo(() => {
   return <div>Page is not found.</div>;
-};
+});

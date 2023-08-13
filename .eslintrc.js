@@ -32,6 +32,8 @@ module.exports = {
     },
     plugins: ['@typescript-eslint', 'react', 'prettier', 'react-hooks'],
     rules: {
+        'react/display-name': 'off',
+        '@typescript-eslint/no-explicit-any': 'warn',
         '@typescript-eslint/no-unused-vars': 'warn',
         'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
         'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
