@@ -9,7 +9,6 @@ export const Layout = memo(() => (
     minHeight="100vh"
     alignItems="center"
     justifyContent="space-between"
-    overflow="hidden"
   >
     <Box
       as="header"
