@@ -33,6 +33,7 @@ module.exports = {
     plugins: ['@typescript-eslint', 'react', 'prettier', 'react-hooks'],
     rules: {
         'no-debugger': 'warn',
+        'no-console': 'warn',
         'react/display-name': 'off',
         '@typescript-eslint/no-explicit-any': 'warn',
         '@typescript-eslint/no-unused-vars': 'warn',
