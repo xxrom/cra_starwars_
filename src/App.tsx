@@ -1,6 +1,7 @@
 import React, { memo, useEffect } from 'react';
 import {
   Box,
+  Button,
   ChakraBaseProvider,
   Editable,
   EditableInput,
@@ -22,11 +23,9 @@ import {
 import chakraTheme from '@chakra-ui/theme';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './components';
-import { Person, PeopleGrid, NotFound } from './pages';
+import { Person, PeopleGrid, NotFound, About } from './pages';
 import { useStore } from './hooks';
 import { setToLS } from './hooks/useStore/localStorage';
-
-const { Button } = chakraTheme.components;
 
 const theme = extendBaseTheme({
   components: {
@@ -62,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: 'person/:personId',
         element: <Person />,
+      },
+      {
+        path: '/about',
+        element: <About />,
       },
     ],
     errorElement: <NotFound />,
