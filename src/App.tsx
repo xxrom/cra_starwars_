@@ -11,6 +11,7 @@ import {
   InputGroup,
   InputLeftAddon,
   Link,
+  List,
   SimpleGrid,
   Skeleton,
   SkeletonText,
@@ -43,6 +44,7 @@ const theme = extendBaseTheme({
     Link,
     SimpleGrid,
     Text,
+    List,
   },
 });
 

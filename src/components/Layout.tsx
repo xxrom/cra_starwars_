@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Box, Link as MenuLink } from '@chakra-ui/react';
+import { Box, Link as MenuLink, SimpleGrid } from '@chakra-ui/react';
 import { Outlet, Link } from 'react-router-dom';
 
 export const Layout = memo(() => (
@@ -19,7 +19,7 @@ export const Layout = memo(() => (
       boxShadow="lg"
     >
       <MenuLink
-        borderBottom="1px"
+        textDecoration="underline"
         py="1"
         px="3"
         cursor="pointer"
@@ -34,9 +34,24 @@ export const Layout = memo(() => (
     </Box>
 
     <Box width="100%" maxHeight="100px" backgroundColor="gray.100" padding="6">
-      <Link to="https://github.com/xxrom/cra_starwars_">
-        ChernyshovNikita - GitHub
-      </Link>
+      <SimpleGrid
+        display="flex"
+        justifyContent="flex-end"
+        flexWrap="wrap"
+        spacing="16px"
+      >
+        <MenuLink textDecoration="underline">
+          <Link to="https://github.com/xxrom/cra_starwars_">
+            ChernyshovNikita - GitHub
+          </Link>
+        </MenuLink>
+
+        <MenuLink textDecoration="underline">
+          <Link to="https://chernyshov-cra-starwars.netlify.app/">
+            Cloud Link
+          </Link>
+        </MenuLink>
+      </SimpleGrid>
     </Box>
   </Box>
 ));
