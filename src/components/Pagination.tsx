@@ -5,22 +5,19 @@ import { useStore } from '../hooks';
 const MIN_PAGES = 5;
 
 export const Pagination = memo(() => {
-  console.log('Render Pagination');
+  const openedPage = useStore((store) => store.openedPage);
+  const loadPage = useStore((store) => store.loadPage);
+  const pagesMap = useStore((store) => store.pagesMap);
+  const clearAll = useStore((store) => store.clearAll);
 
-  const { openedPage, loadPage, pagesMap, clearAll } = useStore((store) => ({
-    openedPage: store.openedPage,
-    loadPage: store.loadPage,
-    pagesMap: store.peopleMap,
-    clearAll: store.clearAll,
-  }));
   const [pages, setPages] = useState<Array<number>>([]);
 
   useEffect(() => {
     const allKeys = Object.keys(pagesMap).map(Number);
-    const maxPage = Math.max(...allKeys);
+    const maxPageNum = Math.max(...allKeys);
 
-    const pagesSize = maxPage > MIN_PAGES ? maxPage : MIN_PAGES;
-    const pageKeys = Array(pagesSize)
+    const maxNum = maxPageNum > MIN_PAGES ? maxPageNum : MIN_PAGES;
+    const pageKeys = Array(maxNum)
       .fill(0)
       .map((_, index) => index + 1);
 
@@ -33,8 +30,6 @@ export const Pagination = memo(() => {
         loadPage(loadPageNumber),
     [loadPage]
   );
-
-  const onClearAll = useCallback(() => clearAll(), [clearAll]);
 
   return (
     <Box
@@ -94,7 +89,7 @@ export const Pagination = memo(() => {
           Load
         </Button>
 
-        <Button m="1" display="inline-flex" onClick={onClearAll}>
+        <Button m="1" display="inline-flex" onClick={clearAll}>
           Clear
         </Button>
       </Box>

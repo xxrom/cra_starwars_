@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './components';
 import { Person, PeopleGrid, NotFound, About } from './pages';
 import { useStore } from './hooks';
-import { setToLS } from './hooks/useStore/localStorage';
+import { setToLS } from './hooks/useStore/localStorageSlice';
 
 const { Editable, Button, Input, Link, List, Skeleton } =
   chakraTheme.components;
@@ -45,13 +45,9 @@ const router = createBrowserRouter([
 ]);
 
 export const App = memo(() => {
-  console.log('Render APP');
-
-  const { peopleMap, pagesMap, openedPage } = useStore((store) => ({
-    pagesMap: store.pagesMap,
-    peopleMap: store.peopleMap,
-    openedPage: store.openedPage,
-  }));
+  const peopleMap = useStore((store) => store.peopleMap);
+  const pagesMap = useStore((store) => store.pagesMap);
+  const openedPage = useStore((store) => store.openedPage);
 
   // Sync with LS
   useEffect(() => setToLS({ peopleMap }), [peopleMap]);

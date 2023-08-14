@@ -4,16 +4,11 @@ import { Pagination, PeopleList } from '../components';
 
 export const PeopleGrid = memo(() => {
   const initRef = useRef(false);
-  console.log('Render PeopleGrid');
 
-  const { openedPage, pagesMap, getPageByPeopleIDs, loadPage } = useStore(
-    (store) => ({
-      openedPage: store.openedPage,
-      pagesMap: store.pagesMap,
-      getPageByPeopleIDs: store.getPageByPeopleIDs,
-      loadPage: store.loadPage,
-    })
-  );
+  const openedPage = useStore((store) => store.openedPage);
+  const pagesMap = useStore((store) => store.pagesMap);
+  const getPageByPeopleIDs = useStore((store) => store.getPageByPeopleIDs);
+  const loadPage = useStore((store) => store.loadPage);
 
   const currentPageIDs = pagesMap[openedPage] ?? [];
   const people = getPageByPeopleIDs(currentPageIDs);

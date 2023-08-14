@@ -1,5 +1,5 @@
 import { StateCreator } from 'zustand';
-import { getFromLS } from './localStorage';
+import { getFromLS } from './localStorageSlice';
 import { IDType, PersonType } from './peopleSlice';
 import { StoreType } from './useStore';
 
