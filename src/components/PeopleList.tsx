@@ -5,7 +5,9 @@ import { useStore } from '../hooks';
 import { PersonType } from '../hooks/useStore/peopleSlice';
 
 export const PeopleList = memo(({ people }: { people: Array<PersonType> }) => {
-  const { isLoading } = useStore();
+  console.log('PeopleList');
+
+  const isLoading = useStore((store) => store.isLoading);
 
   const peopleList = people.length > 0 ? people : Array(10).fill(0);
 

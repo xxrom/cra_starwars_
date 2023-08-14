@@ -42,8 +42,13 @@ const personKeys: Array<
 ];
 
 export const Person = memo(() => {
+  console.log('Render: Person');
+
   const { personId = '' } = useParams();
-  const { peopleMap, updatePerson } = useStore();
+  const { peopleMap, updatePerson } = useStore((store) => ({
+    peopleMap: store.peopleMap,
+    updatePerson: store.updatePerson,
+  }));
 
   const personData = useMemo(
     () => peopleMap[personId] ?? {},

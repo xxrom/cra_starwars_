@@ -17,7 +17,9 @@ const Info = memo(({ title, text }: InfoType) => (
 ));
 
 export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
-  const { isLoading } = useStore();
+  const isLoading = useStore((store) => store.isLoading);
+
+  console.log('RENDER PersonCard');
 
   if (isLoading) {
     return (

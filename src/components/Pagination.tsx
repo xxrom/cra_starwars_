@@ -5,7 +5,14 @@ import { useStore } from '../hooks';
 const MIN_PAGES = 5;
 
 export const Pagination = memo(() => {
-  const { openedPage, loadPage, pagesMap, clearAll } = useStore();
+  console.log('Render Pagination');
+
+  const { openedPage, loadPage, pagesMap, clearAll } = useStore((store) => ({
+    openedPage: store.openedPage,
+    loadPage: store.loadPage,
+    pagesMap: store.peopleMap,
+    clearAll: store.clearAll,
+  }));
   const [pages, setPages] = useState<Array<number>>([]);
 
   useEffect(() => {

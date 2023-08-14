@@ -4,10 +4,19 @@ export const setToLS = ({
   peopleMap,
   pagesMap,
   openedPage,
-}: Pick<StoreType, 'peopleMap' | 'pagesMap' | 'openedPage'>) => {
-  localStorage.setItem('peopleMap', JSON.stringify(peopleMap));
-  localStorage.setItem('pagesMap', JSON.stringify(pagesMap));
-  localStorage.setItem('openedPage', JSON.stringify(openedPage));
+}: Partial<Pick<StoreType, 'peopleMap' | 'pagesMap' | 'openedPage'>>) => {
+  if (peopleMap) {
+    console.log('LS peopleMap', peopleMap);
+    localStorage.setItem('peopleMap', JSON.stringify(peopleMap));
+  }
+  if (pagesMap) {
+    console.log('LS pagesMap', pagesMap);
+    localStorage.setItem('pagesMap', JSON.stringify(pagesMap));
+  }
+  if (openedPage) {
+    console.log('LS openedPage', openedPage);
+    localStorage.setItem('openedPage', JSON.stringify(openedPage));
+  }
 };
 
 export const getFromLS = () => {
