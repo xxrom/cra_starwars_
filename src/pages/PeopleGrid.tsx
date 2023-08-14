@@ -20,8 +20,8 @@ export const PeopleGrid = memo(() => {
       initRef.current = true;
     }
 
-    loadPage(1);
-  }, [loadPage]);
+    loadPage(openedPage);
+  });
 
   return (
     <>

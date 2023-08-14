@@ -45,12 +45,12 @@ const router = createBrowserRouter([
 ]);
 
 export const App = memo(() => {
-  const { peopleMap, pagesMap } = useStore();
+  const { peopleMap, pagesMap, openedPage } = useStore();
 
   // Sync with LS
   useEffect(() => {
-    setToLS({ peopleMap, pagesMap });
-  }, [peopleMap, pagesMap]);
+    setToLS({ peopleMap, pagesMap, openedPage });
+  }, [peopleMap, pagesMap, openedPage]);
 
   return (
     <ChakraBaseProvider theme={theme}>

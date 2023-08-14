@@ -44,13 +44,13 @@ const mockTimeout = (timeout = 1000) =>
   });
 
 export const useStore = create<StoreType>((set, get) => {
-  const { peopleMap, pagesMap } = getFromLS();
+  const { peopleMap, pagesMap, openedPage } = getFromLS();
 
   return {
     peopleMap,
     pagesMap,
+    openedPage,
 
-    openedPage: 1,
     setOpenedPage: (newOpenedPage) =>
       set((state) => ({
         ...state,
