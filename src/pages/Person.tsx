@@ -3,7 +3,7 @@ import { List } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { PersonInput, PersonInputType } from '../components/PersonInput';
 import { useStore } from '../hooks';
-import type { PersonType } from '../hooks/useStore/useStore';
+import { PersonType } from '../hooks/useStore/peopleSlice';
 
 const personKeys: Array<
   {

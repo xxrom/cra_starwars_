@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { Box, SimpleGrid } from '@chakra-ui/react';
 import { PersonCard } from '.';
-import { PersonType } from '../hooks/useStore/useStore';
 import { useStore } from '../hooks';
+import { PersonType } from '../hooks/useStore/peopleSlice';
 
 export const PeopleList = memo(({ people }: { people: Array<PersonType> }) => {
   const { isLoading } = useStore();
@@ -18,7 +18,13 @@ export const PeopleList = memo(({ people }: { people: Array<PersonType> }) => {
   }
 
   return (
-    <Box padding="16px" boxShadow="lg" bg="white" borderRadius="6">
+    <Box
+      padding="16px"
+      boxShadow="lg"
+      bg="white"
+      backgroundColor="gray.100"
+      borderRadius="6"
+    >
       <SimpleGrid minChildWidth="200px" spacing="16px">
         {peopleList.map((personProps, index) => (
           <PersonCard

@@ -1,7 +1,8 @@
 import React, { memo } from 'react';
 import { Box, Button, Skeleton, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { PersonType, useStore } from '../hooks/useStore/useStore';
+import { useStore } from '../hooks/useStore/useStore';
+import { PersonType } from '../hooks/useStore/peopleSlice';
 
 export type PersonCardType = PersonType;
 export type InfoType = { title: string; text: string | number };
@@ -40,6 +41,7 @@ export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
       borderRadius="6"
       fontSize="lg"
       boxShadow="lg"
+      backgroundColor="white"
     >
       <Box>
         <Info title="Name" text={name} />

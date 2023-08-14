@@ -1,175 +1,20 @@
 import { create } from 'zustand';
-import { clearLS, getFromLS } from './localStorage';
+import { createLoadingSlice, LoadingSliceType } from './loadingSlice';
+import {
+  createLocalStorageSlice,
+  LocalStorageSliceType,
+} from './localStorageSlice';
+import { createPagesSlice, PagesSliceType } from './pagesSlice';
+import { createPeopleSlice, PeopleSliceType } from './peopleSlice';
 
-export type IDType = {
-  id: string;
-};
-export type PersonType = {
-  name: string;
-  birth_year: string;
-  gender: string;
-  mass: number;
-  height: number;
-  eye_color: string;
-  homeworld: string;
-} & IDType;
-export type PageType = Array<IDType['id']>;
+export type StoreType = LoadingSliceType &
+  PeopleSliceType &
+  PagesSliceType &
+  LocalStorageSliceType;
 
-export type StoreType = {
-  // Loading
-  isLoading: boolean;
-  setIsLoading: (newIsLoading: boolean) => void;
-
-  // People
-  peopleMap: { [key: string]: PersonType };
-  addPerson: (newPerson: PersonType) => void;
-  updatePerson: (updatedPerson: PersonType) => void;
-  getPerson: (personId: IDType['id']) => PersonType;
-
-  // Pages
-  openedPage: number;
-  pagesMap: { [key: number]: PageType };
-  setOpenedPage: (newOpenedPage: number) => void;
-  loadPage: (fetchPage: number) => void;
-  addPage: (pageNumber: number, newPage: Array<Omit<PersonType, 'id'>>) => void;
-  getPageByPeopleIDs: (peopleIDs: Array<IDType['id']>) => Array<PersonType>;
-
-  // LocalStorage
-  clearAll: () => void;
-};
-
-const mockTimeout = (timeout = 1000) =>
-  new Promise((res) => {
-    setTimeout(() => res(''), timeout);
-  });
-
-export const useStore = create<StoreType>((set, get) => {
-  const { peopleMap, pagesMap, openedPage } = getFromLS();
-
-  return {
-    peopleMap,
-    pagesMap,
-    openedPage,
-
-    setOpenedPage: (newOpenedPage) =>
-      set((state) => ({
-        ...state,
-        openedPage: newOpenedPage,
-      })),
-
-    isLoading: false,
-    setIsLoading: (newIsLoading) =>
-      set((state) => ({
-        ...state,
-        isLoading: newIsLoading,
-      })),
-
-    addPerson: (newPerson) =>
-      set((state) => ({
-        ...state,
-        peopleMap: {
-          ...state.peopleMap,
-          [newPerson.id]: newPerson,
-        },
-      })),
-    updatePerson: (updatedPerson) =>
-      set((state) => ({
-        ...state,
-        peopleMap: {
-          ...state.peopleMap,
-          [updatedPerson.id]: updatedPerson,
-        },
-      })),
-    getPerson: (personId) => {
-      const state = get();
-
-      return state.peopleMap[personId];
-    },
-
-    loadPage: async (fetchPage: number) => {
-      const { pagesMap, addPage, setOpenedPage, setIsLoading } = get();
-
-      // Validate fetchPage
-      if (fetchPage < 1) {
-        return;
-      }
-
-      setOpenedPage(fetchPage);
-
-      if (pagesMap[fetchPage]) {
-        return;
-      }
-
-      // Set empty page
-      set((state) => ({
-        ...state,
-        pagesMap: {
-          ...state.pagesMap,
-          [fetchPage]: [],
-        },
-      }));
-
-      setIsLoading(true);
-
-      const { results = [] } = await fetch(
-        `https://swapi.dev/api/people/?page=${fetchPage}`
-      ).then((res) => res.json());
-
-      await mockTimeout();
-
-      addPage(fetchPage, results);
-
-      setIsLoading(false);
-    },
-    addPage: (pageNumber, newPage) =>
-      set((state) => {
-        const generateId = ({
-          name,
-          height,
-        }: Pick<PersonType, 'name' | 'height'>) => `${name}-${height}`;
-
-        const peopleIDs = newPage.map(generateId);
-
-        const newPeopleChunk = newPage.reduce((accumulate, current) => {
-          const id = generateId(current);
-
-          return {
-            ...accumulate,
-            [id]: {
-              ...current,
-              id,
-            },
-          };
-        }, {});
-
-        return {
-          ...state,
-          peopleMap: {
-            ...state.peopleMap,
-            ...newPeopleChunk,
-          },
-          pagesMap: {
-            ...state.pagesMap,
-            [pageNumber]: peopleIDs,
-          },
-        };
-      }),
-    getPageByPeopleIDs: (peopleIDs) => {
-      const state = get();
-
-      return peopleIDs.map((id) => state.getPerson(id));
-    },
-
-    clearAll: () => {
-      clearLS();
-
-      set((state) => ({
-        ...state,
-        openedPage: 0,
-        isLoading: false,
-        peopleMap: {},
-        pagesMap: {},
-      }));
-    },
-  };
-});
+export const useStore = create<StoreType>((...actions) => ({
+  ...createLoadingSlice(...actions),
+  ...createPeopleSlice(...actions),
+  ...createPagesSlice(...actions),
+  ...createLocalStorageSlice(...actions),
+}));
