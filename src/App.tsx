@@ -1,25 +1,5 @@
 import React, { memo, useEffect } from 'react';
-import {
-  Box,
-  Button,
-  ChakraBaseProvider,
-  Editable,
-  EditableInput,
-  EditablePreview,
-  EditableTextarea,
-  extendBaseTheme,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  Link,
-  List,
-  ListItem,
-  SimpleGrid,
-  Skeleton,
-  SkeletonText,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { ChakraBaseProvider, extendBaseTheme } from '@chakra-ui/react';
 import chakraTheme from '@chakra-ui/theme';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './components';
@@ -27,25 +7,16 @@ import { Person, PeopleGrid, NotFound, About } from './pages';
 import { useStore } from './hooks';
 import { setToLS } from './hooks/useStore/localStorage';
 
+const { Editable, Button, Link, List, Skeleton } = chakraTheme.components;
+
 const theme = extendBaseTheme({
   components: {
     Button,
-    Box,
     Skeleton,
-    SkeletonText,
     Editable,
-    EditableInput,
-    EditableTextarea,
-    EditablePreview,
-    Input,
-    InputLeftAddon,
-    InputGroup,
-    Stack,
     Link,
-    SimpleGrid,
     Text,
     List,
-    ListItem,
   },
 });
 
