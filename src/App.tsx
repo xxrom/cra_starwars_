@@ -7,13 +7,15 @@ import { Person, PeopleGrid, NotFound, About } from './pages';
 import { useStore } from './hooks';
 import { setToLS } from './hooks/useStore/localStorage';
 
-const { Editable, Button, Link, List, Skeleton } = chakraTheme.components;
+const { Editable, Button, Input, Link, List, Skeleton } =
+  chakraTheme.components;
 
 const theme = extendBaseTheme({
   components: {
     Button,
     Skeleton,
     Editable,
+    Input,
     Link,
     Text,
     List,

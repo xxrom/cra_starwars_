@@ -23,9 +23,11 @@ export const PersonInput = ({
     <InputLeftAddon
       p="2"
       borderLeftRadius="6"
+      borderRight="0"
       minWidth="110px"
       fontSize="lg"
       backgroundColor="gray.600"
+      borderColor="gray.600"
       color="white"
     >
       {`${label}:`}
@@ -37,9 +39,10 @@ export const PersonInput = ({
       display="flex"
       width="100%"
       minWidth="100px"
-      p="2"
       borderRadius="6"
-      size="lg"
+      borderColor="gray.100"
+      borderLeft="0"
+      fontSize="lg"
       placeholder={String(placeholder)}
       defaultValue={value}
       onChange={onChange}
