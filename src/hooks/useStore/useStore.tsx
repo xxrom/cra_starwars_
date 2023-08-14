@@ -52,7 +52,7 @@ export const clearLS = () => {
   localStorage.setItem('pagesMap', JSON.stringify({}));
 };
 
-const mockTimeout = (timeout = 400) =>
+const mockTimeout = (timeout = 1000) =>
   new Promise((res) => {
     setTimeout(() => res(''), timeout);
   });

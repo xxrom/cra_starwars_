@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Box, Button, SkeletonText, Text } from '@chakra-ui/react';
+import { Box, Button, Skeleton, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { PersonType, useStore } from '../hooks/useStore/useStore';
 
@@ -20,12 +20,12 @@ export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
 
   if (isLoading) {
     return (
-      <SkeletonText
+      <Skeleton
         isLoaded={!isLoading}
         noOfLines={1}
-        skeletonHeight="130px"
+        height="130px"
         startColor="purple.500"
-        endColor="orange.500"
+        endColor="gray.400"
         borderRadius="6"
       />
     );
