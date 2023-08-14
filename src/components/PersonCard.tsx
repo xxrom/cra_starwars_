@@ -23,7 +23,7 @@ export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
       <Skeleton
         isLoaded={!isLoading}
         noOfLines={1}
-        height="133px"
+        height="149px"
         startColor="purple.500"
         endColor="gray.400"
         borderRadius="6"
@@ -33,7 +33,7 @@ export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
 
   return (
     <Box
-      p="8px"
+      p="4"
       display="flex"
       flexDirection="column"
       justifyContent="space-between"

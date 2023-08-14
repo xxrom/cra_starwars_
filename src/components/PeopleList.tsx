@@ -19,7 +19,7 @@ export const PeopleList = memo(({ people }: { people: Array<PersonType> }) => {
 
   return (
     <Box padding="16px" boxShadow="lg" bg="white" borderRadius="6">
-      <SimpleGrid minChildWidth="160px" spacing="16px">
+      <SimpleGrid minChildWidth="200px" spacing="16px">
         {peopleList.map((personProps, index) => (
           <PersonCard
             key={`${index}${personProps?.name}`}
