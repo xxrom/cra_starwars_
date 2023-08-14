@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { clearLS, getFromLS } from './localStorage';
 
 export type IDType = {
   id: string;
@@ -15,41 +16,26 @@ export type PersonType = {
 export type PageType = Array<IDType['id']>;
 
 export type StoreType = {
-  peopleMap: { [key: string]: PersonType };
-  pagesMap: { [key: number]: PageType };
-
-  openedPage: number;
-  setOpenedPage: (newOpenedPage: number) => void;
-
+  // Loading
   isLoading: boolean;
   setIsLoading: (newIsLoading: boolean) => void;
 
+  // People
+  peopleMap: { [key: string]: PersonType };
   addPerson: (newPerson: PersonType) => void;
   updatePerson: (updatedPerson: PersonType) => void;
   getPerson: (personId: IDType['id']) => PersonType;
+
+  // Pages
+  openedPage: number;
+  pagesMap: { [key: number]: PageType };
+  setOpenedPage: (newOpenedPage: number) => void;
   loadPage: (fetchPage: number) => void;
   addPage: (pageNumber: number, newPage: Array<Omit<PersonType, 'id'>>) => void;
   getPageByPeopleIDs: (peopleIDs: Array<IDType['id']>) => Array<PersonType>;
 
+  // LocalStorage
   clearAll: () => void;
-};
-
-export const setToLS = ({
-  peopleMap,
-  pagesMap,
-}: Pick<StoreType, 'peopleMap' | 'pagesMap'>) => {
-  localStorage.setItem('peopleMap', JSON.stringify(peopleMap));
-  localStorage.setItem('pagesMap', JSON.stringify(pagesMap));
-};
-export const getFromLS = () => {
-  const peopleMap = JSON.parse(localStorage.getItem('peopleMap') || '{}');
-  const pagesMap = JSON.parse(localStorage.getItem('pagesMap') || '{}');
-
-  return { peopleMap, pagesMap };
-};
-export const clearLS = () => {
-  localStorage.setItem('peopleMap', JSON.stringify({}));
-  localStorage.setItem('pagesMap', JSON.stringify({}));
 };
 
 const mockTimeout = (timeout = 1000) =>
@@ -59,8 +45,6 @@ const mockTimeout = (timeout = 1000) =>
 
 export const useStore = create<StoreType>((set, get) => {
   const { peopleMap, pagesMap } = getFromLS();
-
-  console.log('init store', pagesMap, peopleMap);
 
   return {
     peopleMap,
@@ -168,8 +152,10 @@ export const useStore = create<StoreType>((set, get) => {
 
       return peopleIDs.map((id) => state.getPerson(id));
     },
+
     clearAll: () => {
       clearLS();
+
       set((state) => ({
         ...state,
         openedPage: 1,

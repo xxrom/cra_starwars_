@@ -3,6 +3,7 @@ import { Box, Button } from '@chakra-ui/react';
 import { useStore } from '../hooks';
 
 const MIN_PAGES = 5;
+
 export const Pagination = memo(() => {
   const { openedPage, loadPage, pagesMap, clearAll } = useStore();
   const [pages, setPages] = useState<Array<number>>([]);

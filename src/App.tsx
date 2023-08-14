@@ -22,7 +22,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './components';
 import { Person, People, NotFound } from './pages';
 import { useStore } from './hooks';
-import { setToLS } from './hooks/useStore/useStore';
+import { setToLS } from './hooks/useStore/localStorage';
 
 const { Button } = chakraTheme.components;
 

@@ -6,14 +6,14 @@ import { PersonType, useStore } from '../hooks/useStore/useStore';
 export type PersonCardType = PersonType;
 export type InfoType = { title: string; text: string | number };
 
-const Info = ({ title, text }: InfoType) => (
+const Info = memo(({ title, text }: InfoType) => (
   <Box display="flex">
     <Text>{`${title}:`}</Text>
     <Text ml="1" as="b" isTruncated>
       {text}
     </Text>
   </Box>
-);
+));
 
 export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
   const { isLoading } = useStore();

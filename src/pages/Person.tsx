@@ -40,6 +40,7 @@ const personKeys: Array<
     type: 'url',
   },
 ];
+
 export const Person = memo(() => {
   const { personId = '' } = useParams();
   const { peopleMap, updatePerson } = useStore();
@@ -71,7 +72,6 @@ export const Person = memo(() => {
       alignItems="center"
       boxShadow="lg"
       borderRadius="8"
-      bg="white"
       spacing="16px"
     >
       {personKeys.map(({ key, ...rest }) => (
