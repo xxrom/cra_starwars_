@@ -19,7 +19,7 @@ export const PersonInput = ({
   type,
   isDisabled = false,
 }: PersonInputType) => (
-  <InputGroup mt="3">
+  <InputGroup>
     <InputLeftAddon
       p="2"
       borderLeftRadius="6"

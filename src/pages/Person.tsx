@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler, memo, useCallback, useMemo } from 'react';
-import { Box } from '@chakra-ui/react';
+import { List } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { PersonInput, PersonInputType } from '../components/PersonInput';
 import { useStore } from '../hooks';
@@ -63,15 +63,16 @@ export const Person = memo(() => {
   );
 
   return (
-    <Box
-      p="5"
-      mt="3"
+    <List
+      p="16px"
+      mt="16px"
       display="flex"
       flexDirection="column"
       alignItems="center"
       boxShadow="lg"
       borderRadius="8"
       bg="white"
+      spacing="16px"
     >
       {personKeys.map(({ key, ...rest }) => (
         <PersonInput
@@ -83,6 +84,6 @@ export const Person = memo(() => {
           {...rest}
         />
       ))}
-    </Box>
+    </List>
   );
 });

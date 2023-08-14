@@ -10,9 +10,12 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  Link,
+  SimpleGrid,
   Skeleton,
   SkeletonText,
   Stack,
+  Text,
 } from '@chakra-ui/react';
 import chakraTheme from '@chakra-ui/theme';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -37,6 +40,9 @@ const theme = extendBaseTheme({
     InputLeftAddon,
     InputGroup,
     Stack,
+    Link,
+    SimpleGrid,
+    Text,
   },
 });
 

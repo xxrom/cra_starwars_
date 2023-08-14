@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { subscribeWithSelector } from 'zustand/middleware';
 
 export type IDType = {
   id: string;
@@ -31,6 +30,8 @@ export type StoreType = {
   loadPage: (fetchPage: number) => void;
   addPage: (pageNumber: number, newPage: Array<Omit<PersonType, 'id'>>) => void;
   getPageByPeopleIDs: (peopleIDs: Array<IDType['id']>) => Array<PersonType>;
+
+  clearAll: () => void;
 };
 
 export const setToLS = ({
@@ -45,6 +46,10 @@ export const getFromLS = () => {
   const pagesMap = JSON.parse(localStorage.getItem('pagesMap') || '{}');
 
   return { peopleMap, pagesMap };
+};
+export const clearLS = () => {
+  localStorage.setItem('peopleMap', JSON.stringify({}));
+  localStorage.setItem('pagesMap', JSON.stringify({}));
 };
 
 const mockTimeout = (timeout = 400) =>
@@ -162,6 +167,16 @@ export const useStore = create<StoreType>((set, get) => {
       const state = get();
 
       return peopleIDs.map((id) => state.getPerson(id));
+    },
+    clearAll: () => {
+      clearLS();
+      set((state) => ({
+        ...state,
+        openedPage: 1,
+        isLoading: false,
+        peopleMap: {},
+        pagesMap: {},
+      }));
     },
   };
 });
