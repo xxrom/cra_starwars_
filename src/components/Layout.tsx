@@ -21,6 +21,7 @@ export const Layout = memo(() => (
       position="fixed"
       backgroundColor="white"
       top="0"
+      zIndex="1"
     >
       <SimpleGrid
         display="flex"
