@@ -12,12 +12,16 @@ export const Layout = memo(() => (
     overflow="hidden"
   >
     <Box
+      as="header"
       display="flex"
       width="100%"
       justifyContent="center"
       padding="6"
       boxShadow="lg"
       fontSize="lg"
+      position="fixed"
+      backgroundColor="white"
+      top="0"
     >
       <SimpleGrid
         display="flex"
@@ -47,11 +51,12 @@ export const Layout = memo(() => (
       </SimpleGrid>
     </Box>
 
-    <Box width="100%" maxWidth="960px" padding="6">
+    <Box as="main" width="100%" maxWidth="960px" padding="6" paddingTop="100px">
       <Outlet />
     </Box>
 
     <Box
+      as="footer"
       width="100%"
       maxHeight="100px"
       borderTop="1px"
