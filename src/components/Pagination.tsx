@@ -8,13 +8,18 @@ export const Pagination = memo(() => {
   const { openedPage, loadPage, pagesMap, clearAll } = useStore();
   const [pages, setPages] = useState<Array<number>>([]);
 
+  console.log('pagesMap', pagesMap);
+  console.log('pages', pages);
+  console.log('openedPage', openedPage);
+
   useEffect(() => {
-    const allKeys = Object.keys(pagesMap).map(Number);
+    const allKeys = Object.keys(pagesMap);
     const pagesSize = allKeys.length > MIN_PAGES ? allKeys.length : MIN_PAGES;
     const pageKeys = Array(pagesSize)
       .fill(0)
       .map((_, index) => index + 1);
 
+    console.log(pageKeys);
     setPages([...pageKeys]);
   }, [pagesMap]);
 

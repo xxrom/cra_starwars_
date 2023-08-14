@@ -1,5 +1,7 @@
 # Star Wars
 
+### [Cloud Demo](https://chernyshov-cra-starwars.netlify.app/)
+
 Build with:
 
 -   template: [create react app](https://pages.github.com/)

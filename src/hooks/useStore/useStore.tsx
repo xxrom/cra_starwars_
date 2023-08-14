@@ -100,10 +100,17 @@ export const useStore = create<StoreType>((set, get) => {
         return;
       }
 
-      // Separe isLoading per page (is it will be independent from each other)
+      // Set empty page
+      set((state) => ({
+        ...state,
+        pagesMap: {
+          ...state.pagesMap,
+          [fetchPage]: [],
+        },
+      }));
+
       setIsLoading(true);
 
-      // TODO: validate 404 error
       const { results = [] } = await fetch(
         `https://swapi.dev/api/people/?page=${fetchPage}`
       ).then((res) => res.json());
@@ -116,15 +123,15 @@ export const useStore = create<StoreType>((set, get) => {
     },
     addPage: (pageNumber, newPage) =>
       set((state) => {
-        const getPersonId = ({
+        const generateId = ({
           name,
           height,
         }: Pick<PersonType, 'name' | 'height'>) => `${name}-${height}`;
 
-        const peopleIDs = newPage.map(getPersonId);
+        const peopleIDs = newPage.map(generateId);
 
         const newPeopleChunk = newPage.reduce((accumulate, current) => {
-          const id = getPersonId(current);
+          const id = generateId(current);
 
           return {
             ...accumulate,
@@ -158,7 +165,7 @@ export const useStore = create<StoreType>((set, get) => {
 
       set((state) => ({
         ...state,
-        openedPage: 1,
+        openedPage: 0,
         isLoading: false,
         peopleMap: {},
         pagesMap: {},
