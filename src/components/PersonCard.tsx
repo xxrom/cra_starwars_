@@ -48,7 +48,7 @@ export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
       </Box>
 
       <Box display="flex" justifyContent="flex-end">
-        <Link to={`/${id}`}>
+        <Link to={`/person/${id}`}>
           <Button mt="1" size="sm">
             Edit
           </Button>

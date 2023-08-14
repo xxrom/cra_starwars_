@@ -2,7 +2,7 @@ import React, { memo, useEffect, useRef } from 'react';
 import { useStore } from '../hooks/useStore/useStore';
 import { Pagination, PeopleList } from '../components';
 
-export const People = memo(() => {
+export const PeopleGrid = memo(() => {
   const initRef = useRef(false);
 
   const { openedPage, pagesMap, getPageByPeopleIDs, loadPage } = useStore();

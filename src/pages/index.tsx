@@ -1,3 +1,3 @@
 export { Person } from './Person';
-export { People } from './People';
+export { PeopleGrid } from './PeopleGrid';
 export { NotFound } from './NotFound';

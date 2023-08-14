@@ -12,6 +12,7 @@ import {
   InputLeftAddon,
   Link,
   List,
+  ListItem,
   SimpleGrid,
   Skeleton,
   SkeletonText,
@@ -21,7 +22,7 @@ import {
 import chakraTheme from '@chakra-ui/theme';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './components';
-import { Person, People, NotFound } from './pages';
+import { Person, PeopleGrid, NotFound } from './pages';
 import { useStore } from './hooks';
 import { setToLS } from './hooks/useStore/localStorage';
 
@@ -45,20 +46,21 @@ const theme = extendBaseTheme({
     SimpleGrid,
     Text,
     List,
+    ListItem,
   },
 });
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '',
     element: <Layout />,
     children: [
       {
-        path: '',
-        element: <People />,
+        path: '/',
+        element: <PeopleGrid />,
       },
       {
-        path: ':personId',
+        path: 'person/:personId',
         element: <Person />,
       },
     ],
