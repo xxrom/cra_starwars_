@@ -73,6 +73,7 @@ export const Person = memo(() => {
       boxShadow="lg"
       borderRadius="8"
       spacing="16px"
+      overflow="scroll"
     >
       {personKeys.map(({ key, ...rest }) => (
         <PersonInput

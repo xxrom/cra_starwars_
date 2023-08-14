@@ -23,7 +23,7 @@ export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
       <Skeleton
         isLoaded={!isLoading}
         noOfLines={1}
-        height="130px"
+        height="133px"
         startColor="purple.500"
         endColor="gray.400"
         borderRadius="6"

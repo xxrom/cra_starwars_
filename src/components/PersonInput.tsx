@@ -23,7 +23,7 @@ export const PersonInput = ({
     <InputLeftAddon
       p="2"
       borderLeftRadius="6"
-      minWidth="150px"
+      minWidth="110px"
       fontSize="lg"
       backgroundColor="gray.600"
       color="white"
