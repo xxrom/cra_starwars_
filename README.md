@@ -7,6 +7,8 @@ Build with:
 -   template: [create react app](https://pages.github.com/)
 -   ui components: [chakra-ui](https://chakra-ui.com/)
 -   store: [zustand](https://github.com/pmndrs/zustand)
+-   react testing: [@testing-library/react](https://www.npmjs.com/package/@testing-library/react)
+-   hook testing: [react-hooks-testing-library](https://react-hooks-testing-library.com/)
 
 Features:
 
