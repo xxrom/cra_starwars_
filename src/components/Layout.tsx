@@ -61,26 +61,31 @@ export const Layout = memo(() => (
       maxHeight="100px"
       borderTop="1px"
       borderColor="gray.300"
-      padding="6"
+      py="6"
+      display="flex"
+      justifyContent="center"
+      flexDirection="row"
     >
-      <SimpleGrid
-        display="flex"
-        justifyContent="flex-end"
-        flexWrap="wrap"
-        spacing="16px"
-      >
-        <Text textDecoration="underline">
-          <Link to="https://github.com/xxrom/cra_starwars_">
-            ChernyshovNikita - GitHub
-          </Link>
-        </Text>
+      <Box width="100%" maxWidth="960px" px="6">
+        <SimpleGrid
+          display="flex"
+          justifyContent="flex-end"
+          flexWrap="wrap"
+          spacing="16px"
+        >
+          <Text textDecoration="underline">
+            <Link to="https://github.com/xxrom/cra_starwars_">
+              ChernyshovNikita - GitHub
+            </Link>
+          </Text>
 
-        <Text textDecoration="underline">
-          <Link to="https://chernyshov-cra-starwars.netlify.app/">
-            Cloud Link
-          </Link>
-        </Text>
-      </SimpleGrid>
+          <Text textDecoration="underline">
+            <Link to="https://chernyshov-cra-starwars.netlify.app/">
+              Cloud Link
+            </Link>
+          </Text>
+        </SimpleGrid>
+      </Box>
     </Box>
   </Box>
 ));
