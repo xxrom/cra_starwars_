@@ -17,6 +17,6 @@ Features:
 -   sync all data with browser localStorage
 -   pagination
 
-### Start project ([localhost:3000](http://localhost:3000/)): `yarn && yarn start`
+### Start project (browser URL: [localhost:3000](http://localhost:3000/)): `yarn && yarn start`
 
 ### Run tests: `yarn test`
