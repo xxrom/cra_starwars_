@@ -28,7 +28,7 @@
     "dev": "BROWSER=none TSC_COMPILE_ON_ERROR=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",
-    "test:watch": "react-scripts test",
+    "test:watch": "react-scripts test --silent=false",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{ts,tsx}",
     "lint:fix": "eslint --fix src/**/*.{ts,tsx}",
@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.0-placeholder-for-preset-env.2",
+    "@testing-library/react-hooks": "^8.0.1",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
     "eslint": "^8.47.0",

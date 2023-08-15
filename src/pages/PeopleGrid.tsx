@@ -14,7 +14,7 @@ export const PeopleGrid = memo(() => {
   const people = getPageByPeopleIDs(currentPageIDs);
 
   useEffect(() => {
-    // Fetch Data only once
+    // Init fetch data only once
     if (typeof initRef?.current !== 'undefined' && initRef.current) {
       return;
     }

@@ -3,10 +3,10 @@ import { getFromLS } from './localStorageSlice';
 import { IDType, PersonType } from './peopleSlice';
 import { StoreType } from './useStore';
 
-export type PageType = Array<IDType['id']>;
+export type PageMapType = Array<IDType['id']>;
 export type PagesSliceType = {
   openedPage: number;
-  pagesMap: { [key: number]: PageType };
+  pagesMap: { [key: number]: PageMapType };
   setOpenedPage: (newOpenedPage: number) => void;
   loadPage: (fetchPage: number) => void;
   addPage: (pageNumber: number, newPage: Array<Omit<PersonType, 'id'>>) => void;
@@ -25,12 +25,12 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
     return {
       pagesMap,
       openedPage,
+
       setOpenedPage: (newOpenedPage) =>
         set((state) => ({
           ...state,
           openedPage: newOpenedPage,
         })),
-
       loadPage: async (fetchPage: number) => {
         const { pagesMap, addPage, setOpenedPage, setIsLoading } = get();
 

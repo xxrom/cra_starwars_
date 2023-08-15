@@ -28,6 +28,7 @@ export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
         startColor="purple.500"
         endColor="gray.400"
         borderRadius="6"
+        data-testid="PersonCard-Skeleton"
       />
     );
   }
@@ -42,6 +43,7 @@ export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
       fontSize="lg"
       boxShadow="lg"
       backgroundColor="white"
+      data-testid="PersonCard"
     >
       <Box>
         <Info title="Name" text={name} />

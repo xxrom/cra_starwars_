@@ -4,10 +4,12 @@ import { PersonCard } from '.';
 import { useStore } from '../hooks';
 import { PersonType } from '../hooks/useStore/peopleSlice';
 
+export const SKELETON_ITEMS = 10;
+
 export const PeopleList = memo(({ people }: { people: Array<PersonType> }) => {
   const isLoading = useStore((store) => store.isLoading);
 
-  const peopleList = people.length > 0 ? people : Array(10).fill(0);
+  const peopleList = people.length > 0 ? people : Array(SKELETON_ITEMS).fill(0);
 
   if (people.length === 0 && !isLoading) {
     return (

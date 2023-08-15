@@ -12,7 +12,7 @@ export type StoreType = LoadingSliceType &
   PagesSliceType &
   LocalStorageSliceType;
 
-export const useStore = create<StoreType>((...actions) => ({
+export const useStore = create<StoreType>()((...actions) => ({
   ...createLoadingSlice(...actions),
   ...createPeopleSlice(...actions),
   ...createPagesSlice(...actions),
