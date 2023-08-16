@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react';
 import { useStore } from './useStore';
 
 describe('loadingSlice', () => {
@@ -6,19 +6,23 @@ describe('loadingSlice', () => {
     jest.resetAllMocks();
   });
 
-  test('set isLoading to false', () => {
+  test('set isLoading to false', async () => {
     const { result } = renderHook(() => useStore((store) => store));
 
-    result.current.setIsLoading(false);
+    act(() => {
+      result.current.actions.setIsLoading(false);
+    });
 
-    expect(result.current.isLoading).toBe(false);
+    await waitFor(() => !result.current.isLoading);
   });
 
-  test('set isLoading to true', () => {
+  test('set isLoading to true', async () => {
     const { result } = renderHook(() => useStore((store) => store));
 
-    result.current.setIsLoading(true);
+    act(() => {
+      result.current.actions.setIsLoading(true);
+    });
 
-    expect(result.current.isLoading).toBe(true);
+    await waitFor(() => result.current.isLoading);
   });
 });

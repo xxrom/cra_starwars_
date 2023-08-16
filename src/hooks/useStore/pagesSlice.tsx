@@ -32,7 +32,7 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
           openedPage: newOpenedPage,
         })),
       loadPage: async (fetchPage: number) => {
-        const { pagesMap, addPage, setOpenedPage, setIsLoading } = get();
+        const { pagesMap, addPage, setOpenedPage, actions } = get();
 
         // Validate fetchPage
         if (fetchPage < 1) {
@@ -54,7 +54,7 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
           },
         }));
 
-        setIsLoading(true);
+        actions.setIsLoading(true);
 
         const { results = [] } = await fetch(
           `https://swapi.dev/api/people/?page=${fetchPage}`
@@ -64,7 +64,7 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
 
         addPage(fetchPage, results);
 
-        setIsLoading(false);
+        actions.setIsLoading(false);
       },
       addPage: (pageNumber, newPage) =>
         set((state) => {

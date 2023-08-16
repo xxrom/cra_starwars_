@@ -19,6 +19,7 @@ export const PeopleGrid = memo(() => {
       return;
     }
 
+    // Mark first enter
     if (typeof initRef?.current !== 'undefined') {
       initRef.current = true;
     }

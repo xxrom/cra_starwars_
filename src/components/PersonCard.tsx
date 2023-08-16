@@ -43,7 +43,7 @@ export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
       fontSize="lg"
       boxShadow="lg"
       backgroundColor="white"
-      data-testid="PersonCard"
+      data-testid="PersonCard-Box"
     >
       <Box>
         <Info title="Name" text={name} />

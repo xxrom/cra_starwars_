@@ -21,7 +21,7 @@ export const create = (<T,>() => {
 }) as typeof zustand.create;
 
 // reset all stores after each test run
-afterEach(() => {
+beforeEach(() => {
   act(() => {
     storeResetFns.forEach((resetFn) => {
       resetFn();
