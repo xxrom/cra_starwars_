@@ -1,5 +1,5 @@
 import { StateCreator } from 'zustand';
-import { getFromLS } from './localStorageSlice';
+import { localStorageActions } from './localStorageSlice';
 import { IDType, PersonType } from './peopleSlice';
 import { StoreType } from './useStore';
 
@@ -20,7 +20,8 @@ const mockTimeout = (timeout = 1000) =>
 
 export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
   (set, get) => {
-    const { pagesMap, openedPage } = getFromLS();
+    // Init get data from LS
+    const { pagesMap, openedPage } = localStorageActions.getFromLS();
 
     return {
       pagesMap,
@@ -32,7 +33,7 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
           openedPage: newOpenedPage,
         })),
       loadPage: async (fetchPage: number) => {
-        const { pagesMap, addPage, setOpenedPage, actions } = get();
+        const { pagesMap, addPage, setOpenedPage, actionsLoading } = get();
 
         // Validate fetchPage
         if (fetchPage < 1) {
@@ -54,7 +55,7 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
           },
         }));
 
-        actions.setIsLoading(true);
+        actionsLoading.setIsLoading(true);
 
         const { results = [] } = await fetch(
           `https://swapi.dev/api/people/?page=${fetchPage}`
@@ -64,7 +65,7 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
 
         addPage(fetchPage, results);
 
-        actions.setIsLoading(false);
+        actionsLoading.setIsLoading(false);
       },
       addPage: (pageNumber, newPage) =>
         set((state) => {
@@ -100,9 +101,9 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
           };
         }),
       getPageByPeopleIDs: (peopleIDs) => {
-        const state = get();
+        const { actionsPeople } = get();
 
-        return peopleIDs.map((id) => state.getPerson(id));
+        return peopleIDs.map((id) => actionsPeople.getPerson(id));
       },
     };
   };

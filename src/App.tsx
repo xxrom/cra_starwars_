@@ -4,8 +4,7 @@ import chakraTheme from '@chakra-ui/theme';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './components';
 import { Person, PeopleGrid, NotFound, About } from './pages';
-import { useStore } from './hooks';
-import { setToLS } from './hooks/useStore/localStorageSlice';
+import { useLSActions, useStore } from './hooks';
 
 const { Editable, Button, Input, Link, List, Skeleton } =
   chakraTheme.components;
@@ -48,11 +47,12 @@ export const App = memo(() => {
   const peopleMap = useStore((store) => store.peopleMap);
   const pagesMap = useStore((store) => store.pagesMap);
   const openedPage = useStore((store) => store.openedPage);
+  const { setToLS } = useLSActions();
 
-  // Sync with LS
-  useEffect(() => setToLS({ peopleMap }), [peopleMap]);
-  useEffect(() => setToLS({ pagesMap }), [pagesMap]);
-  useEffect(() => setToLS({ openedPage }), [openedPage]);
+  // Sync data with LS
+  useEffect(() => setToLS({ peopleMap }), [peopleMap, setToLS]);
+  useEffect(() => setToLS({ pagesMap }), [pagesMap, setToLS]);
+  useEffect(() => setToLS({ openedPage }), [openedPage, setToLS]);
 
   return (
     <ChakraBaseProvider theme={theme}>

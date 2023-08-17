@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { Box, Button } from '@chakra-ui/react';
-import { useStore } from '../hooks';
+import { useLSActions, useStore } from '../hooks';
 
 const MIN_PAGES = 5;
 
@@ -8,7 +8,7 @@ export const Pagination = memo(() => {
   const openedPage = useStore((store) => store.openedPage);
   const loadPage = useStore((store) => store.loadPage);
   const pagesMap = useStore((store) => store.pagesMap);
-  const clearAll = useStore((store) => store.clearAll);
+  const { clearAll } = useLSActions();
 
   const [pages, setPages] = useState<Array<number>>([]);
 

@@ -1,13 +1,13 @@
 import React, { memo } from 'react';
 import { Box, SimpleGrid } from '@chakra-ui/react';
 import { PersonCard } from '.';
-import { useStore } from '../hooks';
+import { useLoadingIsLoading } from '../hooks';
 import { PersonType } from '../hooks/useStore/peopleSlice';
 
 export const SKELETON_ITEMS = 10;
 
 export const PeopleList = memo(({ people }: { people: Array<PersonType> }) => {
-  const isLoading = useStore((store) => store.isLoading);
+  const isLoading = useLoadingIsLoading();
 
   const peopleList = people.length > 0 ? people : Array(SKELETON_ITEMS).fill(0);
 

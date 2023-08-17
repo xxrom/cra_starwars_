@@ -2,7 +2,7 @@ import React, { ChangeEventHandler, memo, useCallback, useMemo } from 'react';
 import { List } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { PersonInput, PersonInputType } from '../components/PersonInput';
-import { useStore } from '../hooks';
+import { useStore, usePeopleActions } from '../hooks';
 import { PersonType } from '../hooks/useStore/peopleSlice';
 
 const personKeys: Array<
@@ -44,7 +44,7 @@ const personKeys: Array<
 export const Person = memo(() => {
   const { personId = '' } = useParams();
   const peopleMap = useStore((store) => store.peopleMap);
-  const updatePerson = useStore((store) => store.updatePerson);
+  const { updatePerson } = usePeopleActions();
 
   const personData = useMemo(
     () => peopleMap[personId] ?? {},

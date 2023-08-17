@@ -46,7 +46,7 @@ describe('PersonCard', () => {
     render(<PersonCard {...mockCard} />, { wrapper: BrowserRouter });
 
     act(() => {
-      result.current.actions.setIsLoading(false);
+      result.current.actionsLoading.setIsLoading(false);
     });
 
     // await for mock user

@@ -1,9 +1,9 @@
 import { StateCreator } from 'zustand';
-import { StoreType } from './useStore';
+import { StoreType, useStore } from './useStore';
 
 export type LoadingSliceType = {
   isLoading: boolean;
-  actions: {
+  actionsLoading: {
     setIsLoading: (newIsLoading: boolean) => void;
   };
 };
@@ -15,10 +15,14 @@ export const createLoadingSlice: StateCreator<
   LoadingSliceType
 > = (set) => ({
   isLoading: false,
-  actions: {
+  actionsLoading: {
     setIsLoading: (newIsLoading) =>
       set(() => ({
         isLoading: newIsLoading,
       })),
   },
 });
+
+export const useLoadingIsLoading = () => useStore((store) => store.isLoading);
+export const useLoadingActions = () =>
+  useStore((store) => store.actionsLoading);

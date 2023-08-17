@@ -1,6 +1,6 @@
 import { StateCreator } from 'zustand';
-import { getFromLS } from './localStorageSlice';
-import { StoreType } from './useStore';
+import { localStorageActions } from './localStorageSlice';
+import { StoreType, useStore } from './useStore';
 
 export type IDType = {
   id: string;
@@ -17,9 +17,12 @@ export type PersonType = {
 
 export type PeopleSliceType = {
   peopleMap: { [key: string]: PersonType };
-  addPerson: (newPerson: PersonType) => void;
-  updatePerson: (updatedPerson: PersonType) => void;
-  getPerson: (personId: PersonType['id']) => PersonType;
+  actionsPeople: {
+    syncPeopleMapFromLS: () => void;
+    addPerson: (newPerson: PersonType) => void;
+    updatePerson: (updatedPerson: PersonType) => void;
+    getPerson: (personId: PersonType['id']) => PersonType;
+  };
 };
 
 export const createPeopleSlice: StateCreator<
@@ -28,30 +31,44 @@ export const createPeopleSlice: StateCreator<
   [],
   PeopleSliceType
 > = (set, get) => {
-  const { peopleMap } = getFromLS();
+  // Init get data from LS
+  const { peopleMap } = localStorageActions.getFromLS();
 
   return {
     peopleMap,
-    addPerson: (newPerson) =>
-      set((state) => ({
-        ...state,
-        peopleMap: {
-          ...state.peopleMap,
-          [newPerson.id]: newPerson,
-        },
-      })),
-    updatePerson: (updatedPerson) =>
-      set((state) => ({
-        ...state,
-        peopleMap: {
-          ...state.peopleMap,
-          [updatedPerson.id]: updatedPerson,
-        },
-      })),
-    getPerson: (personId) => {
-      const state = get();
+    actionsPeople: {
+      syncPeopleMapFromLS: () => {
+        const { actionsLocalStorage } = get();
+        const { peopleMap } = actionsLocalStorage.getFromLS();
 
-      return state.peopleMap[personId];
+        set((state) => ({
+          ...state,
+          peopleMap,
+        }));
+      },
+      addPerson: (newPerson) =>
+        set((state) => ({
+          ...state,
+          peopleMap: {
+            ...state.peopleMap,
+            [newPerson.id]: newPerson,
+          },
+        })),
+      updatePerson: (updatedPerson) =>
+        set((state) => ({
+          ...state,
+          peopleMap: {
+            ...state.peopleMap,
+            [updatedPerson.id]: updatedPerson,
+          },
+        })),
+      getPerson: (personId) => {
+        const state = get();
+
+        return state.peopleMap[personId];
+      },
     },
   };
 };
+
+export const usePeopleActions = () => useStore((store) => store.actionsPeople);

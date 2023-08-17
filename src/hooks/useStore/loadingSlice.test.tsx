@@ -10,7 +10,7 @@ describe('loadingSlice', () => {
     const { result } = renderHook(() => useStore((store) => store));
 
     act(() => {
-      result.current.actions.setIsLoading(false);
+      result.current.actionsLoading.setIsLoading(false);
     });
 
     await waitFor(() => !result.current.isLoading);
@@ -20,7 +20,7 @@ describe('loadingSlice', () => {
     const { result } = renderHook(() => useStore((store) => store));
 
     act(() => {
-      result.current.actions.setIsLoading(true);
+      result.current.actionsLoading.setIsLoading(true);
     });
 
     await waitFor(() => result.current.isLoading);

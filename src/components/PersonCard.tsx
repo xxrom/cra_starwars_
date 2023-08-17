@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { Box, Button, Skeleton, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { useStore } from '../hooks/useStore/useStore';
 import { PersonType } from '../hooks/useStore/peopleSlice';
+import { useLoadingIsLoading } from '../hooks';
 
 export type PersonCardType = PersonType;
 export type InfoType = { title: string; text: string | number };
@@ -17,7 +17,7 @@ const Info = memo(({ title, text }: InfoType) => (
 ));
 
 export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
-  const isLoading = useStore((store) => store.isLoading);
+  const isLoading = useLoadingIsLoading();
 
   if (isLoading) {
     return (
