@@ -13,7 +13,15 @@ export const PeopleList = memo(({ people }: { people: Array<PersonType> }) => {
 
   if (people.length === 0 && !isLoading) {
     return (
-      <Box py="16" px="2" boxShadow="lg" bg="white" borderRadius="6">
+      <Box
+        display="flex"
+        justifyContent="center"
+        py="16"
+        px="2"
+        boxShadow="lg"
+        bg="white"
+        borderRadius="6"
+      >
         Page is empty.
       </Box>
     );
