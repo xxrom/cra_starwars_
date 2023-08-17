@@ -7,11 +7,13 @@ import { useLoadingIsLoading } from '../hooks';
 export type PersonCardType = PersonType;
 export type InfoType = { title?: string; text: string | number };
 
-const Info = memo(({ title, text }: InfoType) => (
+export const Info = memo(({ title, text }: InfoType) => (
   <Box display="flex">
-    {typeof title === 'string' && <Text mr="1">{`${title}:`}</Text>}
+    {typeof title === 'string' && (
+      <Text data-testid="Info-title" mr="1">{`${title}:`}</Text>
+    )}
 
-    <Text as="b" isTruncated>
+    <Text data-testid="Info-text" as="b" isTruncated>
       {text}
     </Text>
   </Box>

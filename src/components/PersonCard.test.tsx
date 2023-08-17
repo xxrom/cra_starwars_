@@ -6,12 +6,12 @@ import {
   act,
 } from '@testing-library/react';
 import { useStore } from '../hooks/useStore/useStore';
-import { PersonCard, PersonCardType } from './PersonCard';
+import { PersonCard, PersonCardType, Info } from './PersonCard';
 import { BrowserRouter } from 'react-router-dom';
 
 const mockCard: PersonCardType = {
   id: 'Id',
-  name: 'Name',
+  name: 'BIN',
   mass: 100,
   height: 200,
   homeworld: 'Homeworld',
@@ -55,5 +55,21 @@ describe('PersonCard', () => {
     expect(
       await screen.findByText(mockCard.name).then((res) => res.textContent)
     ).toBe(mockCard.name);
+  });
+
+  describe('Info', () => {
+    test('render without "title", only "text"', async () => {
+      render(<Info text="text" />);
+
+      expect(screen.queryByTestId('Info-title')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('Info-text')).toBeInTheDocument();
+    });
+
+    test('render with "title" and "text"', async () => {
+      render(<Info title="name" text="something interesting" />);
+
+      expect(screen.queryByTestId('Info-title')).toBeInTheDocument();
+      expect(screen.queryByTestId('Info-text')).toBeInTheDocument();
+    });
   });
 });
