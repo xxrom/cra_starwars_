@@ -1,5 +1,5 @@
 export { useStore } from './useStore/useStore';
-export { usePeopleActions } from './useStore/peopleSlice';
+export { usePeopleActions, usePeopleMap } from './useStore/peopleSlice';
 export { useLSActions } from './useStore/localStorageSlice';
 export {
   useLoadingActions,

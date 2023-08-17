@@ -5,12 +5,13 @@ import { PersonType } from '../hooks/useStore/peopleSlice';
 import { useLoadingIsLoading } from '../hooks';
 
 export type PersonCardType = PersonType;
-export type InfoType = { title: string; text: string | number };
+export type InfoType = { title?: string; text: string | number };
 
 const Info = memo(({ title, text }: InfoType) => (
   <Box display="flex">
-    <Text>{`${title}:`}</Text>
-    <Text ml="1" as="b" isTruncated>
+    {typeof title === 'string' && <Text mr="1">{`${title}:`}</Text>}
+
+    <Text as="b" isTruncated>
       {text}
     </Text>
   </Box>
@@ -46,7 +47,7 @@ export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
       data-testid="PersonCard-Box"
     >
       <Box>
-        <Info title="Name" text={name} />
+        <Info text={name} />
         <Info title="Height" text={height} />
         <Info title="Mass" text={mass} />
       </Box>

@@ -4,7 +4,7 @@ import chakraTheme from '@chakra-ui/theme';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './components';
 import { Person, PeopleGrid, NotFound, About } from './pages';
-import { useLSActions, useStore } from './hooks';
+import { useLSActions, usePeopleMap, useStore } from './hooks';
 
 const { Editable, Button, Input, Link, List, Skeleton, Divider } =
   chakraTheme.components;
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
 ]);
 
 export const App = memo(() => {
-  const peopleMap = useStore((store) => store.peopleMap);
+  const peopleMap = usePeopleMap();
   const pagesMap = useStore((store) => store.pagesMap);
   const openedPage = useStore((store) => store.openedPage);
   const { setToLS } = useLSActions();

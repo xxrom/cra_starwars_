@@ -71,4 +71,5 @@ export const createPeopleSlice: StateCreator<
   };
 };
 
+export const usePeopleMap = () => useStore((store) => store.peopleMap);
 export const usePeopleActions = () => useStore((store) => store.actionsPeople);

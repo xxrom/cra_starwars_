@@ -18,11 +18,12 @@ export const createLoadingSlice: StateCreator<
   actionsLoading: {
     setIsLoading: (newIsLoading, particularPage) => {
       const { openedPage } = get();
+      const pageNumber = particularPage ?? openedPage;
 
       set((store) => ({
         isLoadingList: {
           ...store.isLoadingList,
-          [particularPage ?? openedPage]: newIsLoading,
+          [pageNumber]: newIsLoading,
         },
       }));
     },

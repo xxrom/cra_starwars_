@@ -4,7 +4,7 @@ import { useStore } from '../hooks/useStore/useStore';
 import { PersonType } from '../hooks/useStore/peopleSlice';
 import { BrowserRouter } from 'react-router-dom';
 
-describe('PeropleGrid', () => {
+describe('PeopleGrid', () => {
   test('Initial render => "Clear" button', () => {
     render(<PeopleGrid />, { wrapper: BrowserRouter });
 
