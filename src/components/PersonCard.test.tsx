@@ -24,7 +24,9 @@ describe('PersonCard', () => {
   beforeEach(() => {
     const { result } = renderHook(() => useStore((store) => store));
 
-    result.current.isLoading = true;
+    act(() => {
+      result.current.actionsLoading.setIsLoading(true);
+    });
   });
 
   test('isLoading = true, show Skeleton', async () => {
@@ -39,9 +41,6 @@ describe('PersonCard', () => {
 
   test('isLoading = false, show mockUser name on screen', async () => {
     const { result } = renderHook(() => useStore((store) => store));
-
-    // set init isLoading to true
-    result.current.isLoading = true;
 
     render(<PersonCard {...mockCard} />, { wrapper: BrowserRouter });
 

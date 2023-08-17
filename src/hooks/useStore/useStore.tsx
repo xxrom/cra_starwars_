@@ -7,9 +7,9 @@ import {
 import { createPagesSlice, PagesSliceType } from './pagesSlice';
 import { createPeopleSlice, PeopleSliceType } from './peopleSlice';
 
+/*
 // Merge all types togather
 import { DeepMergeTwoTypes } from '../../types_helper';
-/*
 export type StoreType = DeepMergeTwoTypes<
   [LoadingSliceType],
   [PeopleSliceType, PagesSliceType, LocalStorageSliceType]

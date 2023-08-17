@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
-import { Box, CircularProgress, Text } from '@chakra-ui/react';
+import { Box, CircularProgress, Divider, Text } from '@chakra-ui/react';
 import ReactMarkdown from 'react-markdown';
 import { mockTimeout } from '../helper';
 
@@ -45,6 +45,8 @@ export const About = memo(() => {
   return (
     <Box boxShadow="lg" padding="6">
       <Text mb="6">{`Rendered from 'Readme.md' file.`}</Text>
+
+      <Divider />
 
       <ReactMarkdown
         components={{

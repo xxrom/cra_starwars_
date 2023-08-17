@@ -6,13 +6,14 @@ import { Layout } from './components';
 import { Person, PeopleGrid, NotFound, About } from './pages';
 import { useLSActions, useStore } from './hooks';
 
-const { Editable, Button, Input, Link, List, Skeleton } =
+const { Editable, Button, Input, Link, List, Skeleton, Divider } =
   chakraTheme.components;
 
 const theme = extendBaseTheme({
   components: {
     Button,
     Skeleton,
+    Divider,
     Editable,
     Input,
     Link,

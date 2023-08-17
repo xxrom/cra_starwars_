@@ -6,6 +6,7 @@ const MIN_PAGES = 5;
 
 export const Pagination = memo(() => {
   const openedPage = useStore((store) => store.openedPage);
+  const isLoadingList = useStore((store) => store.isLoadingList);
   const loadPage = useStore((store) => store.loadPage);
   const pagesMap = useStore((store) => store.pagesMap);
   const { clearAll } = useLSActions();
@@ -59,20 +60,24 @@ export const Pagination = memo(() => {
           flexWrap="wrap"
           justifyContent="center"
         >
-          {pages.map((key) => (
-            <Box
-              px="1"
-              display="inline-flex"
-              background={key === openedPage ? 'gray.600' : 'transparent'}
-              color={key === openedPage ? 'white' : 'black'}
-              cursor="pointer"
-              borderRadius="4"
-              key={key}
-              onClick={loadMore(key)}
-            >
-              {pagesMap[key] ? `_${key}_ ` : `~${key}~`}
-            </Box>
-          ))}
+          {pages.map((page) => {
+            const isLoaded = pagesMap[page] && !isLoadingList[page];
+
+            return (
+              <Box
+                px="1"
+                display="inline-flex"
+                background={page === openedPage ? 'gray.600' : 'transparent'}
+                color={page === openedPage ? 'white' : 'black'}
+                cursor="pointer"
+                borderRadius="4"
+                key={page}
+                onClick={loadMore(page)}
+              >
+                {isLoaded ? `_${page}_ ` : `~${page}~`}
+              </Box>
+            );
+          })}
         </Box>
 
         <Button mx="1" display="inline-flex" onClick={loadMore(openedPage + 1)}>

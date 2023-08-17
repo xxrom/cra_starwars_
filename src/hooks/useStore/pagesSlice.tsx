@@ -51,7 +51,7 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
           },
         }));
 
-        actionsLoading.setIsLoading(true);
+        actionsLoading.setIsLoading(true, fetchPage);
 
         const { results = [] } = await fetch(
           `https://swapi.dev/api/people/?page=${fetchPage}`
@@ -61,7 +61,7 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
 
         addPage(fetchPage, results);
 
-        actionsLoading.setIsLoading(false);
+        actionsLoading.setIsLoading(false, fetchPage);
       },
       addPage: (pageNumber, newPage) =>
         set((state) => {

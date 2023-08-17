@@ -44,7 +44,7 @@ describe('PeropleGrid', () => {
         mockPerson,
         mockPerson,
       ];
-      result.current.isLoading = true;
+      result.current.actionsLoading.setIsLoading(true);
     });
 
     render(<PeopleGrid />, { wrapper: BrowserRouter });
