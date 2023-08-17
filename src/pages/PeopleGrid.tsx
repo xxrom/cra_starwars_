@@ -1,14 +1,13 @@
 import React, { memo, useEffect, useRef } from 'react';
-import { useStore } from '../hooks/useStore/useStore';
 import { Pagination, PeopleList } from '../components';
+import { useOpenedPage, usePagesActions, usePagesMap } from '../hooks';
 
 export const PeopleGrid = memo(() => {
   const initRef = useRef(false);
 
-  const openedPage = useStore((store) => store.openedPage);
-  const pagesMap = useStore((store) => store.pagesMap);
-  const getPageByPeopleIDs = useStore((store) => store.getPageByPeopleIDs);
-  const loadPage = useStore((store) => store.loadPage);
+  const openedPage = useOpenedPage();
+  const pagesMap = usePagesMap();
+  const { getPageByPeopleIDs, loadPage } = usePagesActions();
 
   const currentPageIDs = pagesMap[openedPage] ?? [];
   const people = getPageByPeopleIDs(currentPageIDs);

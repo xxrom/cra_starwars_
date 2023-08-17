@@ -10,7 +10,7 @@ describe('loadingSlice', () => {
     const { result } = renderHook(() => useStore((store) => store));
 
     act(() => {
-      result.current.setOpenedPage(1);
+      result.current.actionsPages.setOpenedPage(1);
       result.current.actionsLoading.setIsLoading(false);
     });
 
@@ -21,7 +21,7 @@ describe('loadingSlice', () => {
     const { result } = renderHook(() => useStore((store) => store));
 
     act(() => {
-      result.current.setOpenedPage(2);
+      result.current.actionsPages.setOpenedPage(2);
       result.current.actionsLoading.setIsLoading(true);
     });
 

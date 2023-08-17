@@ -17,18 +17,18 @@ describe('PeopleGrid', () => {
     const { result } = renderHook(() => useStore());
 
     // Spy on loadPage
-    result.current.loadPage = jest.fn();
+    result.current.actionsPages.loadPage = jest.fn();
     render(<PeopleGrid />, { wrapper: BrowserRouter });
 
     act(() => {
       // emulate opening new page
-      result.current.setOpenedPage(2);
+      result.current.actionsPages.setOpenedPage(2);
     });
 
     // wait for some time
     await new Promise((res) => setTimeout(() => res(''), 1000));
 
-    expect(result.current.loadPage).toBeCalledTimes(1);
+    expect(result.current.actionsPages.loadPage).toBeCalledTimes(1);
   });
 
   test('Init load should show PersonCard-Skeleton', () => {
@@ -39,7 +39,7 @@ describe('PeopleGrid', () => {
 
       const mockPerson = {} as PersonType;
       // Mock people to show on page
-      result.current.getPageByPeopleIDs = () => [
+      result.current.actionsPages.getPageByPeopleIDs = () => [
         mockPerson,
         mockPerson,
         mockPerson,

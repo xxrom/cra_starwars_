@@ -1,6 +1,12 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { Box, Button } from '@chakra-ui/react';
-import { useLSActions, useStore } from '../hooks';
+import {
+  useIsLoadingList,
+  useLSActions,
+  useOpenedPage,
+  usePagesActions,
+  usePagesMap,
+} from '../hooks';
 
 const MIN_PAGES = 5;
 
@@ -27,10 +33,10 @@ const getPageColor = (isLoaded: boolean) => {
 };
 
 export const Pagination = memo(() => {
-  const openedPage = useStore((store) => store.openedPage);
-  const isLoadingList = useStore((store) => store.isLoadingList);
-  const loadPage = useStore((store) => store.loadPage);
-  const pagesMap = useStore((store) => store.pagesMap);
+  const openedPage = useOpenedPage();
+  const isLoadingList = useIsLoadingList();
+  const { loadPage } = usePagesActions();
+  const pagesMap = usePagesMap();
   const { clearAll } = useLSActions();
 
   const [pages, setPages] = useState<Array<number>>([]);

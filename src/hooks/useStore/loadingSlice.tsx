@@ -30,6 +30,7 @@ export const createLoadingSlice: StateCreator<
   },
 });
 
+export const useIsLoadingList = () => useStore((store) => store.isLoadingList);
 export const useLoadingIsLoading = () =>
   useStore((store) => {
     const { openedPage, isLoadingList } = store;
