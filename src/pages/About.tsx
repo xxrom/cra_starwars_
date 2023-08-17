@@ -1,18 +1,47 @@
-import React, { memo, useEffect, useState } from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import React, { memo, useEffect, useRef, useState } from 'react';
+import { Box, CircularProgress, Text } from '@chakra-ui/react';
 import ReactMarkdown from 'react-markdown';
+import { mockTimeout } from '../helper';
 
 export const About = memo(() => {
-  const [md, setMd] = useState('');
+  const initRef = useRef(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [md, setMd] = useState('-/-');
 
   useEffect(() => {
+    // Load only once
+    if (typeof initRef?.current !== 'undefined' && initRef.current) {
+      return;
+    }
+
+    initRef.current = true;
+    setIsLoading(true);
+
     fetch(
       'https://raw.githubusercontent.com/xxrom/cra_starwars_/master/README.md'
     )
       .then((response) => response.text())
-      .then((text) => setMd(text));
+      .then(async (text) => {
+        await mockTimeout(2000);
+        return text;
+      })
+      .then((text) => {
+        setMd(text);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
   }, []);
 
+  if (isLoading) {
+    return (
+      <Box boxShadow="lg" padding="8" display="flex" justifyContent="center">
+        <CircularProgress isIndeterminate color="gray.600" />
+      </Box>
+    );
+  }
   return (
     <Box boxShadow="lg" padding="6">
       <Text mb="6">{`Rendered from 'Readme.md' file.`}</Text>

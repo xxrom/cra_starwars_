@@ -34,7 +34,7 @@ module.exports = {
     rules: {
         'react/react-in-jsx-scope': 'off',
         'no-debugger': 'warn',
-        'no-console': 'warn',
+        'no-console': ['warn', { allow: ['error'] }],
         'react/display-name': 'off',
         '@typescript-eslint/no-explicit-any': 'warn',
         '@typescript-eslint/no-unused-vars': 'warn',

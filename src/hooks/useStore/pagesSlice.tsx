@@ -1,4 +1,5 @@
 import { StateCreator } from 'zustand';
+import { mockTimeout } from '../../helper';
 import { localStorageActions } from './localStorageSlice';
 import { IDType, PersonType } from './peopleSlice';
 import { StoreType } from './useStore';
@@ -12,11 +13,6 @@ export type PagesSliceType = {
   addPage: (pageNumber: number, newPage: Array<Omit<PersonType, 'id'>>) => void;
   getPageByPeopleIDs: (peopleIDs: Array<IDType['id']>) => Array<PersonType>;
 };
-
-const mockTimeout = (timeout = 1000) =>
-  new Promise((res) => {
-    setTimeout(() => res(''), timeout);
-  });
 
 export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
   (set, get) => {
