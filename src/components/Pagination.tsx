@@ -4,6 +4,28 @@ import { useLSActions, useStore } from '../hooks';
 
 const MIN_PAGES = 5;
 
+const getPageBackground = (isOpened: boolean, isLoaded: boolean) => {
+  if (isOpened) {
+    if (isLoaded) {
+      return 'gray.500';
+    }
+    return 'gray.800';
+  }
+
+  if (isLoaded) {
+    return 'transparent';
+  }
+  return 'gray.200';
+};
+
+const getPageColor = (isLoaded: boolean) => {
+  if (isLoaded) {
+    return 'white';
+  }
+
+  return 'gray.800';
+};
+
 export const Pagination = memo(() => {
   const openedPage = useStore((store) => store.openedPage);
   const isLoadingList = useStore((store) => store.isLoadingList);
@@ -62,13 +84,16 @@ export const Pagination = memo(() => {
         >
           {pages.map((page) => {
             const isLoaded = pagesMap[page] && !isLoadingList[page];
+            const isCurrentPage = openedPage === page;
+            const background = getPageBackground(isCurrentPage, isLoaded);
+            const color = getPageColor(isCurrentPage);
 
             return (
               <Box
                 px="1"
                 display="inline-flex"
-                background={page === openedPage ? 'gray.600' : 'transparent'}
-                color={page === openedPage ? 'white' : 'black'}
+                background={background}
+                color={color}
                 cursor="pointer"
                 borderRadius="4"
                 key={page}
