@@ -21,10 +21,11 @@ describe('loadingSlice', () => {
     const { result } = renderHook(() => useStore((store) => store));
 
     act(() => {
+      result.current.setOpenedPage(2);
       result.current.actionsLoading.setIsLoading(true);
     });
 
-    await waitFor(() => result.current.isLoadingList[1]);
+    await waitFor(() => result.current.isLoadingList[2]);
   });
 
   test('set isLoading to true for particular page', async () => {
