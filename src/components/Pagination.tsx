@@ -15,12 +15,14 @@ const getPageBackground = (isOpened: boolean, isLoaded: boolean) => {
     if (isLoaded) {
       return 'gray.500';
     }
+
     return 'gray.800';
   }
 
   if (isLoaded) {
     return 'transparent';
   }
+
   return 'purple.100';
 };
 
@@ -35,8 +37,8 @@ const getPageColor = (isLoaded: boolean) => {
 export const Pagination = memo(() => {
   const openedPage = useOpenedPage();
   const isLoadingList = useIsLoadingList();
-  const { loadPage } = usePagesActions();
   const pagesMap = usePagesMap();
+  const { loadPage } = usePagesActions();
   const { clearAll } = useLSActions();
 
   const [pages, setPages] = useState<Array<number>>([]);
@@ -96,16 +98,18 @@ export const Pagination = memo(() => {
 
             return (
               <Box
-                px="1"
+                mx="1"
+                minW="40px"
                 display="inline-flex"
+                justifyContent="center"
                 background={background}
                 color={color}
                 cursor="pointer"
-                borderRadius="4"
+                borderRadius="6"
                 key={page}
                 onClick={loadMore(page)}
               >
-                {isLoaded ? `_${page}_ ` : `~${page}~`}
+                {isLoaded ? page : `~${page}~`}
               </Box>
             );
           })}
