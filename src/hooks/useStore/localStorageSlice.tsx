@@ -38,7 +38,10 @@ export const createLocalStorageSlice: StateCreator<
   },
 });
 
-export const localStorageActions = {
+export const localStorageActions: Pick<
+  LocalStorageSliceType['actionsLocalStorage'],
+  'getFromLS' | 'setToLS'
+> = {
   getFromLS: () => {
     const peopleMap = JSON.parse(localStorage.getItem('peopleMap') || '{}');
     const pagesMap = JSON.parse(localStorage.getItem('pagesMap') || '{}');

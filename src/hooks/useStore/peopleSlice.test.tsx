@@ -2,9 +2,9 @@ import { act, renderHook } from '@testing-library/react';
 import { PeopleSliceType, PersonType } from './peopleSlice';
 import { useStore } from './useStore';
 
-const mockPeopleMap: PeopleSliceType['peopleMap'] = {
+const getPeopleMap = (): PeopleSliceType['peopleMap'] => ({
   '1': { name: 'Name' } as PersonType,
-};
+});
 
 // Mock localStorageActions module
 jest.mock('./localStorageSlice', () => {
@@ -17,9 +17,7 @@ jest.mock('./localStorageSlice', () => {
       ...originalModule.localStorageActions,
       getFromLS: jest.fn(() => {
         return {
-          peopleMap: {
-            '1': { name: 'Name' } as PersonType,
-          },
+          peopleMap: getPeopleMap(),
           pagesMap: {},
           openedPage: 1,
         };
@@ -36,7 +34,7 @@ describe('peopleSlice', () => {
   test('mock localStorage peopleMap', async () => {
     const { result } = renderHook(() => useStore());
 
-    expect(result.current.peopleMap).toStrictEqual(mockPeopleMap);
+    expect(result.current.peopleMap).toStrictEqual(getPeopleMap());
   });
 
   test('act syncPeopleMapFromLS from inside of store, it is not mocked', async () => {

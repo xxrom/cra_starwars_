@@ -1,21 +1,20 @@
 import { StateCreator } from 'zustand';
 import { mockTimeout } from '../../helper';
+import { generatePersonId } from './helper';
 import { localStorageActions } from './localStorageSlice';
 import { IDType, PersonType } from './peopleSlice';
 import { StoreType, useStore } from './useStore';
 
-export type PageMapType = Array<IDType['id']>;
+export type PageMapItemType = Array<IDType['id']>;
+export type AddPageNewPageType = Array<Omit<PersonType, 'id'>>;
 export type PagesSliceType = {
   openedPage: number;
-  pagesMap: { [key: number]: PageMapType };
+  pagesMap: { [key: number]: PageMapItemType };
 
   actionsPages: {
     setOpenedPage: (newOpenedPage: number) => void;
     loadPage: (fetchPage: number) => void;
-    addPage: (
-      pageNumber: number,
-      newPage: Array<Omit<PersonType, 'id'>>
-    ) => void;
+    addPage: (pageNumber: number, newPage: AddPageNewPageType) => void;
     getPageByPeopleIDs: (peopleIDs: Array<IDType['id']>) => Array<PersonType>;
   };
 };
@@ -73,15 +72,10 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
         },
         addPage: (pageNumber, newPage) =>
           set((state) => {
-            const generateId = ({
-              name,
-              height,
-            }: Pick<PersonType, 'name' | 'height'>) => `${name}-${height}`;
-
-            const peopleIDs = newPage.map(generateId);
+            const peopleIDs = newPage.map((id) => generatePersonId(id));
 
             const newPeopleChunk = newPage.reduce((accumulate, current) => {
-              const id = generateId(current);
+              const id = generatePersonId(current);
 
               return {
                 ...accumulate,

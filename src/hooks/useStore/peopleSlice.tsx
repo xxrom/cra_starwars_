@@ -25,6 +25,7 @@ export type PeopleSliceType = {
   };
 };
 
+
 export const createPeopleSlice: StateCreator<
   StoreType,
   [],

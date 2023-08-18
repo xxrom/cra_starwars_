@@ -23,7 +23,7 @@ export type StoreType = LoadingSliceType &
 
 export const useStore = create<StoreType>((...a) => ({
   ...createLoadingSlice(...a),
-  ...createLocalStorageSlice(...a),
   ...createPeopleSlice(...a),
   ...createPagesSlice(...a),
+  ...createLocalStorageSlice(...a),
 }));

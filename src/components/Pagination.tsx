@@ -21,7 +21,7 @@ const getPageBackground = (isOpened: boolean, isLoaded: boolean) => {
   if (isLoaded) {
     return 'transparent';
   }
-  return 'gray.200';
+  return 'purple.100';
 };
 
 const getPageColor = (isLoaded: boolean) => {
