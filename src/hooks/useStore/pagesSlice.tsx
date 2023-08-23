@@ -9,7 +9,7 @@ export type PageMapItemType = Array<IDType['id']>;
 export type AddPageNewPageType = Array<Omit<PersonType, 'id'>>;
 export type PagesSliceType = {
   openedPage: number;
-  pagesMap: { [key: number]: PageMapItemType };
+  pagesMap: { [pageNumber: number]: PageMapItemType };
 
   actionsPages: {
     setOpenedPage: (newOpenedPage: number) => void;
@@ -38,6 +38,9 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
           const { pagesMap, actionsPages, actionsLoading } = get();
           const { addPage, setOpenedPage } = actionsPages;
 
+          // TODO Search
+          //const search = '';
+
           // Validate fetchPage
           if (fetchPage < 1) {
             return;
@@ -45,7 +48,7 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
 
           setOpenedPage(fetchPage);
 
-          if (pagesMap[fetchPage]) {
+          if (pagesMap?.[fetchPage]) {
             return;
           }
 
@@ -61,8 +64,9 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
           actionsLoading.setIsLoading(true, fetchPage);
 
           const { results = [] } = await fetch(
-            `https://swapi.dev/api/people/?page=${fetchPage}`
+            `https://swapi.dev/api/people/?page=${fetchPage}` //&search=${search}
           ).then((res) => res.json());
+          console.log('Results', results);
 
           await mockTimeout();
 
@@ -70,11 +74,12 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
 
           actionsLoading.setIsLoading(false, fetchPage);
         },
-        addPage: (pageNumber, newPage) =>
+        addPage: (pageNumber, pageResult) =>
           set((state) => {
-            const peopleIDs = newPage.map((id) => generatePersonId(id));
+            // TODO search
+            const peopleIDs = pageResult.map((id) => generatePersonId(id));
 
-            const newPeopleChunk = newPage.reduce((accumulate, current) => {
+            const newPeopleChunk = pageResult.reduce((accumulate, current) => {
               const id = generatePersonId(current);
 
               return {

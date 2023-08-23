@@ -1,4 +1,5 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
+import { useLoadingActions } from './loadingSlice';
 import { useStore } from './useStore';
 
 describe('loadingSlice', () => {
@@ -36,5 +37,16 @@ describe('loadingSlice', () => {
     });
 
     await waitFor(() => result.current.isLoadingList[5]);
+    expect(result.current.isLoadingList[5]).toBeTruthy();
+    expect(result.current.isLoadingList[0]).toBeFalsy();
   });
+
+  /*
+  test('check useLoadingActions', async () => {
+    //renderHook(() => useStore((store) => store));
+    const { result } = renderHook(useLoadingActions);
+
+    expect(result.current.setIsLoading).toBeDefined();
+  });
+  */
 });

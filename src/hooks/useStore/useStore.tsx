@@ -6,6 +6,7 @@ import {
 } from './localStorageSlice';
 import { createPagesSlice, PagesSliceType } from './pagesSlice';
 import { createPeopleSlice, PeopleSliceType } from './peopleSlice';
+import { createSearchSlice, SearchSliceType } from './searchSlice';
 
 /*
 // Merge all types togather
@@ -19,11 +20,13 @@ export type StoreType = DeepMergeTwoTypes<
 export type StoreType = LoadingSliceType &
   PeopleSliceType &
   PagesSliceType &
-  LocalStorageSliceType;
+  LocalStorageSliceType &
+  SearchSliceType;
 
 export const useStore = create<StoreType>((...a) => ({
   ...createLoadingSlice(...a),
   ...createPeopleSlice(...a),
   ...createPagesSlice(...a),
   ...createLocalStorageSlice(...a),
+  ...createSearchSlice(...a),
 }));

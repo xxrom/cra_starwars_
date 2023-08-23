@@ -100,8 +100,10 @@ export const Pagination = memo(() => {
               <Box
                 mx="1"
                 minW="40px"
+                minH="40px"
                 display="inline-flex"
                 justifyContent="center"
+                alignItems="center"
                 background={background}
                 color={color}
                 cursor="pointer"

@@ -2,7 +2,7 @@ import { StateCreator } from 'zustand';
 import { StoreType, useStore } from './useStore';
 
 export type LoadingSliceType = {
-  isLoadingList: { [key: number]: boolean };
+  isLoadingList: { [key: string]: { [key: number]: boolean } };
   actionsLoading: {
     setIsLoading: (newIsLoading: boolean, particularPage?: number) => void;
   };

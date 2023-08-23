@@ -11,3 +11,4 @@ export {
   useLoadingActions,
   useLoadingIsLoading,
 } from './useStore/loadingSlice';
+export { useSearch, useSearchActions } from './useStore/searchSlice';
