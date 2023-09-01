@@ -32,6 +32,8 @@ export const createLocalStorageSlice: StateCreator<
         isLoading: false,
         peopleMap: {},
         pagesMap: {},
+        searchCache: {},
+        search: '',
       }));
     },
     ...localStorageActions,
