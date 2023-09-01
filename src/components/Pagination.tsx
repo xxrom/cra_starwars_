@@ -90,9 +90,9 @@ export const Pagination = memo(() => {
           flexWrap="wrap"
           justifyContent="center"
         >
-          {pages.map((page) => {
-            const isLoaded = pagesMap[page] && !isLoadingList[page];
-            const isCurrentPage = openedPage === page;
+          {pages.map((pageNumber) => {
+            const isLoaded = pagesMap[pageNumber] && !isLoadingList[pageNumber];
+            const isCurrentPage = openedPage === pageNumber;
             const background = getPageBackground(isCurrentPage, isLoaded);
             const color = getPageColor(isCurrentPage);
 
@@ -108,10 +108,10 @@ export const Pagination = memo(() => {
                 color={color}
                 cursor="pointer"
                 borderRadius="6"
-                key={page}
-                onClick={loadMore(page)}
+                key={pageNumber}
+                onClick={loadMore(pageNumber)}
               >
-                {isLoaded ? page : `~${page}~`}
+                {isLoaded ? pageNumber : `~${pageNumber}~`}
               </Box>
             );
           })}

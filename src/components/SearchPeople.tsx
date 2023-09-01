@@ -19,7 +19,7 @@ export const SearchPeople = memo(() => {
   );
 
   return (
-    <InputGroup mb="3">
+    <InputGroup pb="4">
       <InputLeftAddon
         p="2"
         borderLeftRadius="6"
@@ -39,7 +39,8 @@ export const SearchPeople = memo(() => {
         width="100%"
         minWidth="100px"
         borderRadius="6"
-        borderColor="gray.100"
+        borderColor="gray.400"
+        backgroundColor="white"
         borderLeft="0"
         fontSize="lg"
         onChange={onChange}

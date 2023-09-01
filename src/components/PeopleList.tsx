@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Box, SimpleGrid } from '@chakra-ui/react';
-import { PersonCard } from '.';
+import { ErrorBoundary, PersonCard, SearchPeople } from '.';
 import { useLoadingIsLoading } from '../hooks';
 import { PersonType } from '../hooks/useStore/peopleSlice';
 
@@ -11,8 +11,10 @@ export const PeopleList = memo(({ people }: { people: Array<PersonType> }) => {
 
   const peopleList = people.length > 0 ? people : Array(SKELETON_ITEMS).fill(0);
 
+  let Content = null;
+
   if (people.length === 0 && !isLoading) {
-    return (
+    Content = (
       <Box
         display="flex"
         justifyContent="center"
@@ -25,16 +27,8 @@ export const PeopleList = memo(({ people }: { people: Array<PersonType> }) => {
         Page is empty.
       </Box>
     );
-  }
-
-  return (
-    <Box
-      padding="16px"
-      boxShadow="lg"
-      bg="white"
-      backgroundColor="gray.100"
-      borderRadius="6"
-    >
+  } else {
+    Content = (
       <SimpleGrid minChildWidth="200px" spacing="16px">
         {peopleList.map((personProps, index) => (
           <PersonCard
@@ -44,6 +38,22 @@ export const PeopleList = memo(({ people }: { people: Array<PersonType> }) => {
           />
         ))}
       </SimpleGrid>
-    </Box>
+    );
+  }
+
+  return (
+    <ErrorBoundary>
+      <Box
+        padding="16px"
+        boxShadow="lg"
+        bg="white"
+        backgroundColor="gray.100"
+        borderRadius="6"
+      >
+        <SearchPeople />
+
+        {Content}
+      </Box>
+    </ErrorBoundary>
   );
 });

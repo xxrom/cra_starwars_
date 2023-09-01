@@ -1,3 +1,5 @@
+'use client';
+
 import { StateCreator } from 'zustand';
 import { mockTimeout } from '../../helper';
 import { generatePersonId } from './helper';
@@ -14,7 +16,11 @@ export type PagesSliceType = {
   actionsPages: {
     setOpenedPage: (newOpenedPage: number) => void;
     loadPage: (fetchPage: number) => void;
-    addPage: (pageNumber: number, newPage: AddPageNewPageType) => void;
+    addPage: (
+      pageNumber: number,
+      newPage: AddPageNewPageType,
+      initialSearch: string
+    ) => void;
     getPageByPeopleIDs: (peopleIDs: Array<IDType['id']>) => Array<PersonType>;
   };
 };
@@ -35,11 +41,15 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
             openedPage: newOpenedPage,
           })),
         loadPage: async (fetchPage: number) => {
-          const { pagesMap, actionsPages, actionsLoading } = get();
+          const {
+            search,
+            pagesMap,
+            actionsPages,
+            actionsLoading,
+            actionsError,
+          } = get();
           const { addPage, setOpenedPage } = actionsPages;
-
-          // TODO Search
-          //const search = '';
+          const { throwError } = actionsError;
 
           // Validate fetchPage
           if (fetchPage < 1) {
@@ -63,20 +73,49 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
 
           actionsLoading.setIsLoading(true, fetchPage);
 
-          const { results = [] } = await fetch(
-            `https://swapi.dev/api/people/?page=${fetchPage}` //&search=${search}
-          ).then((res) => res.json());
-          console.log('Results', results);
+          try {
+            const result = await fetch(
+              `https://swapi.dev/api/people/?page=${fetchPage}${
+                search ? `&search=${search}` : ''
+              }`
+            ).then((res) => {
+              if (!res.ok) {
+                throwError(Error('fetch error', { cause: res }));
+              }
 
-          await mockTimeout();
+              return res.json();
+            });
 
-          addPage(fetchPage, results);
+            if (!result) {
+              return;
+            }
+            const { results = [] } = result;
+
+            console.log('Results', results);
+
+            await mockTimeout();
+
+            addPage(fetchPage, results, search);
+          } catch (error) {
+            console.error('>>> fetchCatch error', error);
+
+            console.log('actionsError', actionsError);
+            throwError(error as Error);
+          }
 
           actionsLoading.setIsLoading(false, fetchPage);
         },
-        addPage: (pageNumber, pageResult) =>
+        addPage: (pageNumber, pageResult, initialSearch) =>
           set((state) => {
-            // TODO search
+            // TODO: set prev search to cache ?
+
+            const { search } = get();
+            if (search !== initialSearch) {
+              console.log('SEARCH FROM PREVIOUS STRING');
+
+              return state;
+            }
+
             const peopleIDs = pageResult.map((id) => generatePersonId(id));
 
             const newPeopleChunk = pageResult.reduce((accumulate, current) => {

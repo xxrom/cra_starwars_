@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { PersonInput, PersonInputType } from '../components/PersonInput';
 import { usePeopleMap, usePeopleActions } from '../hooks';
 import { PersonType } from '../hooks/useStore/peopleSlice';
+import { ErrorBoundary } from '../components';
 
 const personKeys: Array<
   {
@@ -65,27 +66,29 @@ export const Person = memo(() => {
   );
 
   return (
-    <List
-      p="16px"
-      mt="16px"
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      boxShadow="lg"
-      borderRadius="8"
-      spacing="16px"
-      overflow="scroll"
-    >
-      {personKeys.map(({ key, ...rest }) => (
-        <PersonInput
-          key={key}
-          label={key}
-          onChange={onChange(key)}
-          placeholder={personData[key]}
-          value={personData[key]}
-          {...rest}
-        />
-      ))}
-    </List>
+    <ErrorBoundary fallback="Person Error">
+      <List
+        p="16px"
+        mt="16px"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        boxShadow="lg"
+        borderRadius="8"
+        spacing="16px"
+        overflow="scroll"
+      >
+        {personKeys.map(({ key, ...rest }) => (
+          <PersonInput
+            key={key}
+            label={key}
+            onChange={onChange(key)}
+            placeholder={personData[key]}
+            value={personData[key]}
+            {...rest}
+          />
+        ))}
+      </List>
+    </ErrorBoundary>
   );
 });

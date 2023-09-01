@@ -67,7 +67,7 @@ describe('pagesSlice ', () => {
     const newPage = [getPersonMock(1), getPersonMock(2)];
 
     act(() => {
-      result.current.actionsPages.addPage(page, newPage);
+      result.current.actionsPages.addPage(page, newPage, '');
     });
 
     expect(result.current.pagesMap).toStrictEqual({

@@ -7,6 +7,7 @@ import {
 import { createPagesSlice, PagesSliceType } from './pagesSlice';
 import { createPeopleSlice, PeopleSliceType } from './peopleSlice';
 import { createSearchSlice, SearchSliceType } from './searchSlice';
+import { createErrorSlice, ErrorSliceType } from './errorSlice';
 
 /*
 // Merge all types togather
@@ -21,7 +22,8 @@ export type StoreType = LoadingSliceType &
   PeopleSliceType &
   PagesSliceType &
   LocalStorageSliceType &
-  SearchSliceType;
+  SearchSliceType &
+  ErrorSliceType;
 
 export const useStore = create<StoreType>((...a) => ({
   ...createLoadingSlice(...a),
@@ -29,4 +31,5 @@ export const useStore = create<StoreType>((...a) => ({
   ...createPagesSlice(...a),
   ...createLocalStorageSlice(...a),
   ...createSearchSlice(...a),
+  ...createErrorSlice(...a),
 }));

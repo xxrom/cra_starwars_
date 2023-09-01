@@ -1,11 +1,21 @@
 import { StateCreator } from 'zustand';
+import { LoadingSliceType } from './loadingSlice';
+import { PagesSliceType } from './pagesSlice';
 import { StoreType, useStore } from './useStore';
 
 export type SearchSliceType = {
   search: string;
+  searchCache: {
+    [key: string]: {
+      isLoadingList: LoadingSliceType['isLoadingList'];
+      pagesMap: PagesSliceType['pagesMap'];
+    };
+  };
 
   actionsSearch: {
     setSearch: (newSearch: string) => void;
+    _setSearchCache: () => void;
+    _getSearchCache: () => void;
   };
 };
 
@@ -14,35 +24,71 @@ export const createSearchSlice: StateCreator<
   [],
   [],
   SearchSliceType
-> = (set, get) => {
-  const search = '';
+> = (set, get) => ({
+  search: '',
+  searchCache: {},
 
-  return {
-    search,
+  actionsSearch: {
+    _setSearchCache: () => {
+      const { search, isLoadingList, pagesMap } = get();
+      const onlyLoadedPages = { ...pagesMap };
 
-    actionsSearch: {
-      setSearch: (newSearch) => {
-        //const { openedPage } = get();
-        //const { loadPage } = actionsPages;
+      const onlyLoadedIsLoading = Object.keys(isLoadingList).reduce(
+        (accumulator, key) => {
+          if (isLoadingList[key]) {
+            delete onlyLoadedPages[Number(key)];
+          }
 
-        set((state) => ({
-          ...state,
-          search: newSearch,
-          /*
-          pagesMap: {
-            ...state.pagesMap,
-            [openedPage]: [],
+          return {
+            ...accumulator,
+            [key]: false,
+          };
+        },
+        {}
+      );
+
+      set((state) => ({
+        ...state,
+        searchCache: {
+          ...state.searchCache,
+          [search]: {
+            isLoadingList: onlyLoadedIsLoading,
+            pagesMap: onlyLoadedPages,
           },
-          */
-        }));
-
-        console.log('newSearch', newSearch);
-
-        //loadPage(1);
-      },
+        },
+      }));
     },
-  };
-};
+    _getSearchCache: () => {
+      const { search, searchCache } = get();
+
+      const { isLoadingList = {}, pagesMap = {} } = searchCache?.[search] || {};
+
+      set((state) => ({
+        ...state,
+        isLoadingList,
+        pagesMap,
+      }));
+    },
+    setSearch: (newSearch) => {
+      const { actionsPages, actionsSearch } = get();
+      const { loadPage } = actionsPages;
+      const { _setSearchCache, _getSearchCache } = actionsSearch;
+      const cleanedNewSearch =
+        typeof newSearch === 'string' ? newSearch.trim() : '';
+
+      _setSearchCache();
+
+      set((state) => ({
+        ...state,
+        search: cleanedNewSearch,
+      }));
+
+      _getSearchCache();
+
+      loadPage(1);
+    },
+  },
+});
 
 export const useSearch = () => useStore((store) => store.search);
 export const useSearchActions = () => useStore((store) => store.actionsSearch);

@@ -3,6 +3,7 @@ import { Box, Button, Skeleton, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { PersonType } from '../hooks/useStore/peopleSlice';
 import { useLoadingIsLoading } from '../hooks';
+import { ErrorBoundary } from './ErrorBoundary';
 
 export type PersonCardType = PersonType;
 export type InfoType = { title?: string; text: string | number };
@@ -37,30 +38,32 @@ export const PersonCard = memo(({ id, name, height, mass }: PersonCardType) => {
   }
 
   return (
-    <Box
-      p="4"
-      display="flex"
-      flexDirection="column"
-      justifyContent="space-between"
-      borderRadius="6"
-      fontSize="lg"
-      boxShadow="lg"
-      backgroundColor="white"
-      data-testid="PersonCard-Box"
-    >
-      <Box>
-        <Info text={name} />
-        <Info title="Height" text={height} />
-        <Info title="Mass" text={mass} />
-      </Box>
+    <ErrorBoundary>
+      <Box
+        p="4"
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-between"
+        borderRadius="6"
+        fontSize="lg"
+        boxShadow="lg"
+        backgroundColor="white"
+        data-testid="PersonCard-Box"
+      >
+        <Box>
+          <Info text={name} />
+          <Info title="Height" text={height} />
+          <Info title="Mass" text={mass} />
+        </Box>
 
-      <Box display="flex" justifyContent="flex-end">
-        <Link to={`/person/${id}`}>
-          <Button mt="1" size="sm">
-            Edit
-          </Button>
-        </Link>
+        <Box display="flex" justifyContent="flex-end">
+          <Link to={`/person/${id}`}>
+            <Button mt="1" size="sm">
+              Edit
+            </Button>
+          </Link>
+        </Box>
       </Box>
-    </Box>
+    </ErrorBoundary>
   );
 });

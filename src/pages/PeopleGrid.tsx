@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef } from 'react';
-import { Pagination, PeopleList, SearchPeople } from '../components';
+import { ErrorBoundary, Pagination, PeopleList } from '../components';
 import { useOpenedPage, usePagesActions, usePagesMap } from '../hooks';
 
 export const PeopleGrid = memo(() => {
@@ -24,12 +24,10 @@ export const PeopleGrid = memo(() => {
     }
 
     loadPage(openedPage);
-  }, []);
+  }, [loadPage, openedPage]);
 
   return (
     <>
-      <SearchPeople />
-
       <PeopleList people={people} />
 
       <Pagination />
