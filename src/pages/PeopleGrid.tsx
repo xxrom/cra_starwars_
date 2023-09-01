@@ -27,10 +27,10 @@ export const PeopleGrid = memo(() => {
   }, [loadPage, openedPage]);
 
   return (
-    <>
+    <ErrorBoundary>
       <PeopleList people={people} />
 
       <Pagination />
-    </>
+    </ErrorBoundary>
   );
 });

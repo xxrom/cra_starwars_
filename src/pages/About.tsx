@@ -2,7 +2,6 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 import { Box, CircularProgress, Divider, Text } from '@chakra-ui/react';
 import ReactMarkdown from 'react-markdown';
 import { mockTimeout } from '../helper';
-import { ErrorBoundary } from '../components';
 
 export const About = memo(() => {
   const initRef = useRef(false);
