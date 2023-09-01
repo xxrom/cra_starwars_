@@ -91,15 +91,10 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
             }
             const { results = [] } = result;
 
-            console.log('Results', results);
-
             await mockTimeout();
 
             addPage(fetchPage, results, search);
           } catch (error) {
-            console.error('>>> fetchCatch error', error);
-
-            console.log('actionsError', actionsError);
             throwError(error as Error);
           }
 
@@ -111,8 +106,7 @@ export const createPagesSlice: StateCreator<StoreType, [], [], PagesSliceType> =
 
             const { search } = get();
             if (search !== initialSearch) {
-              console.log('SEARCH FROM PREVIOUS STRING');
-
+              // results from different search
               return state;
             }
 

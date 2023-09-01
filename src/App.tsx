@@ -68,7 +68,7 @@ export const App = memo(() => {
     useStore.setState({
       actionsError: {
         throwError: (error: Error) => {
-          console.log('>>> >>> custom error catcher ', error);
+          console.warn('>>> >>> custom error catcher ', error);
           // TODO: show custom error popup
         },
       },

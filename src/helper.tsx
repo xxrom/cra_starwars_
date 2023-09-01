@@ -20,7 +20,7 @@ export const waitFor = async (cb: () => void, timeout = 500) => {
 
       break;
     } catch {
-      console.log('waitFor, catch');
+      console.warn('waitFor, catch');
     }
   }
 
